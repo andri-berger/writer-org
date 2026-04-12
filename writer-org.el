@@ -260,6 +260,8 @@
 
 
 
+
+
 ;; (let ((ov (make-overlay start end)))
 ;;   (overlay-put ov 'face 'bold)
 ;;   (overlay-put ov 'before-string "→ ")
@@ -308,8 +310,25 @@
 (writer-org--10-enable writer-org-09 200 200 'left-fringe))
 
 
-
-
+(defun writer-org-23 ()
+  "Hide heading stars and make heading lines invisible using overlays.
+Preserves all org functionality (folding, navigation, etc.)."
+  (interactive)
+  (remove-overlays (point-min) (point-max) 'org-heading-overlay t)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward org-heading-regexp nil t)
+      (let* ((bol (line-beginning-position))
+             (eol (line-end-position))
+             (stars-end (match-end 1))
+             ;; overlay 1: hide the stars + the space after them
+             (star-ov (make-overlay bol (1+ stars-end)))
+             ;; overlay 2: make the rest of the heading line invisible
+             (heading-ov (make-overlay (1+ stars-end) eol)))
+        (overlay-put star-ov   'invisible t)
+        (overlay-put star-ov   'org-heading-overlay t)
+        (overlay-put heading-ov 'invisible t)
+        (overlay-put heading-ov 'org-heading-overlay t)))))
 
 
 
