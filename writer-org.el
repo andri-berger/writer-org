@@ -310,25 +310,59 @@
 (writer-org--10-enable writer-org-09 200 200 'left-fringe))
 
 
-(defun writer-org-23 ()
-  "Hide heading stars and make heading lines invisible using overlays.
-Preserves all org functionality (folding, navigation, etc.)."
+(defun writer-org-25 ()
+  "Collapse heading lines to zero height. Body and children untouched.
+Uses before-string overlay with display spec — closest to CSS display:none."
   (interactive)
-  (remove-overlays (point-min) (point-max) 'org-heading-overlay t)
+  (remove-overlays (point-min) (point-max) 'my-heading-line-hidden t)
   (save-excursion
     (goto-char (point-min))
     (while (re-search-forward org-heading-regexp nil t)
-      (let* ((bol (line-beginning-position))
-             (eol (line-end-position))
-             (stars-end (match-end 1))
-             ;; overlay 1: hide the stars + the space after them
-             (star-ov (make-overlay bol (1+ stars-end)))
-             ;; overlay 2: make the rest of the heading line invisible
-             (heading-ov (make-overlay (1+ stars-end) eol)))
-        (overlay-put star-ov   'invisible t)
-        (overlay-put star-ov   'org-heading-overlay t)
-        (overlay-put heading-ov 'invisible t)
-        (overlay-put heading-ov 'org-heading-overlay t)))))
+      (let* ((bol (- (line-beginning-position) 1))
+             (eol (+ 0 (line-end-position)))
+             (ov  (make-overlay bol eol)))
+        (overlay-put ov 'display "")
+        (overlay-put ov 'my-heading-line-hidden t)
+        (overlay-put ov 'evaporate t)))))
+
+
+(defun writer-org-30 ()
+  "Move subtree up regardless of where point is within it."
+  ;; (save-excursion
+  ;; (writer-org-40)
+  (writer-org-40)
+  (outline-back-to-heading t)
+  (org-move-subtree-up)
+  (writer-org-41) 
+  )
+
+
+
+(defun writer-org-31 ()
+  "Move subtree down regardless of where point is within it."
+  ;; (save-excursion
+  (outline-back-to-heading t)
+  (org-move-subtree-down)
+  )
+
+(defun writer-org-40 ()
+  "Remove all overlays on the current line."
+  (outline-back-to-heading t)
+  (remove-overlays (line-beginning-position 0)
+                   (line-end-position 1)))
+
+(defun writer-org-400 ()
+  "Remove all overlays on the current line."
+  (remove-overlays (point-min)
+                   (point-max)))
+
+
+(defun writer-org-41 ()
+  "Put back on overlays on the current line."
+  (let ((ov (make-overlay (line-beginning-position)
+                     (line-end-position))))
+       (overlay-put ov 'display "")))
+
 
 
 

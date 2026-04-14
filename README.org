@@ -1,6 +1,6 @@
 #+title: writer-org
-#+author:
-#+date:
+#+author: Andri Berger
+#+date: 13.04.2026
 #+language: en
 #+options: toc:t num:nil ^:nil
 
