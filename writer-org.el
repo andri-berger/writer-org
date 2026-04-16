@@ -269,6 +269,87 @@
 ;;   (overlay-put ov 'invisible t))
 
 
+(defcustom writer-org-20 1
+  "hierarchy treshold"
+  :group 'writer-org
+  :type 'integer)
+
+(defun add-000 ()
+  "Collapse heading lines to zero height. Body and children untouched.
+Uses before-string overlay with display spec — closest to CSS display:none."
+  (remove-overlays
+   (point-min)
+   (point-max)
+   'my-heading t))
+
+
+;; (defun add-00 ()
+;;   "Collapse heading lines to zero height. Body and children untouched.
+;; Uses before-string overlay with display spec — closest to CSS display:none."
+;;     (goto-char (point-min))
+;;     (while (re-search-forward
+;;             org-heading-regexp nil t)      
+;;       (let* ((local writer-org-20)
+;;              (ev (org-current-level))
+;;              (b (if (<= ev local) 1 0))
+;;              (eol (if (<= ev local)
+;;                       (- (line-end-position) 0)
+;;                     (+ (line-beginning-position) 2)))
+;;              (bol (- (line-beginning-position) b))
+;;              (ov  (make-overlay bol eol)))
+;;         (overlay-put ov 'display "")
+;;         (overlay-put ov 'my-heading t)
+;;         (overlay-put ov 'evaporate t))))
+
+
+(defun add-00s ()
+  "Collapse heading lines to zero height. Body and children untouched.
+Uses before-string overlay with display spec — closest to CSS display:none."
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward
+            org-heading-regexp nil t)
+      (let* ((local writer-org-20)
+             (test (+ (match-end 1) 1))
+             (test0 (match-beginning 1))
+             (lev (org-current-level))
+             (l (line-beginning-position))
+             (eol (if (<= lev (+ local 0))
+                      test (line-end-position)))
+             (bol (if (<= lev (+ local 0))
+                    test0 (- l 1)))
+             (ov (make-overlay bol eol)))
+        (overlay-put ov 'display "")
+        (overlay-put ov 'my-heading t)
+        (overlay-put ov 'evaporate t)))))
+
+(defun add-1 ()
+  "Remove all overlays on the current line."
+    (add-000)
+    (outline-back-to-heading t)
+    (org-move-subtree-down)
+    (forward-line 1)
+    (save-excursion
+      (add-00)))
+
+(defun add-2 ()
+  "Remove all overlays on the current line."
+    (add-000)
+    (outline-back-to-heading t)
+    (org-move-subtree-up)
+    (save-excursion
+      (add-00)))
+
+
+
+
+
+
+
+
+
+
+
 (defun writer-org--20 (a b c d)
 ;; (setq left-fringe-width 5)
 ;; (set-window-fringes (selected-window) 5 nil)
@@ -310,58 +391,12 @@
 (writer-org--10-enable writer-org-09 200 200 'left-fringe))
 
 
-(defun writer-org-25 ()
-  "Collapse heading lines to zero height. Body and children untouched.
-Uses before-string overlay with display spec — closest to CSS display:none."
-  (interactive)
-  (remove-overlays (point-min) (point-max) 'my-heading-line-hidden t)
-  (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward org-heading-regexp nil t)
-      (let* ((bol (- (line-beginning-position) 1))
-             (eol (+ 0 (line-end-position)))
-             (ov  (make-overlay bol eol)))
-        (overlay-put ov 'display "")
-        (overlay-put ov 'my-heading-line-hidden t)
-        (overlay-put ov 'evaporate t)))))
-
-
-(defun writer-org-30 ()
-  "Move subtree up regardless of where point is within it."
-  ;; (save-excursion
-  ;; (writer-org-40)
-  (writer-org-40)
-  (outline-back-to-heading t)
-  (org-move-subtree-up)
-  (writer-org-41) 
-  )
 
 
 
-(defun writer-org-31 ()
-  "Move subtree down regardless of where point is within it."
-  ;; (save-excursion
-  (outline-back-to-heading t)
-  (org-move-subtree-down)
-  )
-
-(defun writer-org-40 ()
-  "Remove all overlays on the current line."
-  (outline-back-to-heading t)
-  (remove-overlays (line-beginning-position 0)
-                   (line-end-position 1)))
-
-(defun writer-org-400 ()
-  "Remove all overlays on the current line."
-  (remove-overlays (point-min)
-                   (point-max)))
 
 
-(defun writer-org-41 ()
-  "Put back on overlays on the current line."
-  (let ((ov (make-overlay (line-beginning-position)
-                     (line-end-position))))
-       (overlay-put ov 'display "")))
+
 
 
 
