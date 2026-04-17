@@ -261,14 +261,6 @@
 
 
 
-
-;; (let ((ov (make-overlay start end)))
-;;   (overlay-put ov 'face 'bold)
-;;   (overlay-put ov 'before-string "→ ")
-;;   (overlay-put ov 'after-string " ←")
-;;   (overlay-put ov 'invisible t))
-
-
 (defcustom writer-org-20 1
   "hierarchy treshold"
   :group 'writer-org
@@ -281,26 +273,6 @@ Uses before-string overlay with display spec — closest to CSS display:none."
    (point-min)
    (point-max)
    'my-heading t))
-
-
-;; (defun add-00 ()
-;;   "Collapse heading lines to zero height. Body and children untouched.
-;; Uses before-string overlay with display spec — closest to CSS display:none."
-;;     (goto-char (point-min))
-;;     (while (re-search-forward
-;;             org-heading-regexp nil t)      
-;;       (let* ((local writer-org-20)
-;;              (ev (org-current-level))
-;;              (b (if (<= ev local) 1 0))
-;;              (eol (if (<= ev local)
-;;                       (- (line-end-position) 0)
-;;                     (+ (line-beginning-position) 2)))
-;;              (bol (- (line-beginning-position) b))
-;;              (ov  (make-overlay bol eol)))
-;;         (overlay-put ov 'display "")
-;;         (overlay-put ov 'my-heading t)
-;;         (overlay-put ov 'evaporate t))))
-
 
 (defun add-00s ()
   "Collapse heading lines to zero height. Body and children untouched.
