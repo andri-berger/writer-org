@@ -364,6 +364,33 @@ Uses before-string overlay with display spec — closest to CSS display:none."
 
 
 
+;; make-vector gutter
+
+(defun my/org-heading-ranges ()
+  "Return a list of (LEVEL TITLE START END) for all headings in current buffer.
+START and END are line numbers. END is the line before the next heading (or
+last line of buffer). No side-effects on other org buffers."
+  (let ((ranges '())
+        (total-lines (line-number-at-pos (point-max))))
+    (org-with-wide-buffer
+     (goto-char (point-min))
+     (while (re-search-forward org-heading-regexp nil t)
+       (push (list
+              (org-current-level)
+              (org-get-heading t t t t)   ; no stars, no tags, no todo, no priority
+              (line-number-at-pos (point))
+              nil)                         ; END filled in below
+             ranges))
+     ;; fill in END for each entry: it's (START-of-next - 1), or total-lines
+     (setq ranges (nreverse ranges))
+     (cl-loop for cell on ranges do
+              (setf (nth 3 (car cell))
+                    (if (cdr cell)
+                        (1- (nth 2 (cadr cell)))
+                      total-lines))))
+    ranges))
+
+
 
 
 
