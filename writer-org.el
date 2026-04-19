@@ -301,16 +301,14 @@ Uses before-string overlay with display spec — closest to CSS display:none."
     (outline-back-to-heading t)
     (org-move-subtree-down)
     (forward-line 1)
-    (save-excursion
-      (add-00)))
+    (add-00s))
 
 (defun add-2 ()
   "Remove all overlays on the current line."
     (add-000)
     (outline-back-to-heading t)
     (org-move-subtree-up)
-    (save-excursion
-      (add-00)))
+    (add-00))
 
 
 
@@ -320,80 +318,104 @@ Uses before-string overlay with display spec — closest to CSS display:none."
 
 
 
+(defface writer-org-annotation-fringe
+  '((t :foreground "#7aa2f7" :background unspecified))
+  "Fringe indicator for writer-org annotations.")
 
 
-(defun writer-org--20 (a b c d)
-;; (setq left-fringe-width 5)
+
+(defconst writer-org--defaults
+  (list :f00 #b1000000000000001
+        :f01 #b1110000110000111
+        :f02 #b0000011111000000
+        :f03 #b1100011111000011
+        ))
+
+(defun writer-org--21s (a b c)
+  (let* ((key (cond ((= a 1) :f01)
+                 ((= a 2) :f02)
+                 ((= a 3) :f03)
+                 (t     :f03)))
+         (yes (plist-get
+               writer-org--defaults key))
+         (bitmap-symb (intern (format "writer-org-bm-%d" a)))))
+         
+   
+    (fringe-mode 10)
+    (define-fringe-bitmap 'writer
+      (make-vector 30 #b0001010101)
+      30 16)
+    (define-fringe-bitmap 'writers
+      (make-vector 30 #b0101010101)
+      30 16)
+
+  (let ((ov (make-overlay b c)))
+    (overlay-put ov 'priority a)
+    (overlay-put ov 'evaporate t)
+    ;; (overlay-put ov 'line-prefix
+    ;;              (propertize " " 'display
+    ;;               '(left-fringe (
+    ;;                              (= a 1)
+    ;;                              writer
+    ;;                              writers) default)
+    ;;               'face 'default))
+    (overlay-put ov 'line-prefix
+                 (propertize " " 'display
+                             (list 'left-fringe
+                                   (if (= a 1) 'writer 'writers)
+                                   'default)))
+    (overlay-put ov 'wrap-prefix
+                 (propertize " " 'display
+                             (list 'left-fringe
+                                   (if (= a 1) 'writer 'writers)
+                                   'default)))
+    ;; (overlay-put ov 'wrap-prefix
+    ;;   (propertize " " 'display
+    ;;               '(left-fringe bitmap-symb default)
+    ;;               'face 'default))
+    ))
+
+
+(defun writer-org--23s ()
+;; (setq-local left-fringe-width 5)
 ;; (set-window-fringes (selected-window) 5 nil)
-;; (overlay-put ov 'evaporate t)
+(set-window-fringes nil 20 10)
 
-  
-  (set-window-fringes nil 30 20)
-  (set-window-fringes nil 10 10)
-  (define-fringe-bitmap 'writer-org-line
-    (make-vector 12 a))
-  (let ((ov (make-overlay (- (point) b) (+ c (point)))))
-    (overlay-put ov 'line-prefix
-      (propertize " " 'display
-                  `(,d writer-org-line default)
-                  'face 'default))
-    (overlay-put ov 'wrap-prefix
-      (propertize " " 'display
-                  `(,d writer-org-line default)
-                  'face 'default))))
-
-(defun writer-org--21 (a b c d)
-  (set-window-fringes nil 30 20)
-  (set-window-fringes nil 10 10)
-  (define-fringe-bitmap 'writer-org-line
-    (make-vector 12 a))
-  (let ((ov (make-overlay (- (point) b) (+ c (point)))))
-    (overlay-put ov 'line-prefix
-      (propertize " " 'display
-                  `(,d writer-org-line default)
-                  'face 'default))
-    (overlay-put ov 'wrap-prefix
-      (propertize " " 'display
-                  `(,d writer-org-line default)
-                  'face 'default))))
+  (org-with-wide-buffer
+   (org-element-map
+       (org-element-parse-buffer 'headline)
+       'headline
+     (lambda (h)
+         (writer-org--21s
+         (org-element-property :level h)
+         (org-element-property :begin h)
+         (org-element-property :end h))))))
 
 
-(defun writer-org--22 ()
-(writer-org--10-enable writer-org-08 100 100 'left-fringe)
-(writer-org--10-enable writer-org-09 200 200 'left-fringe))
+;; (defun writer-org--22 ()
+;;   "Return a list of (LEVEL TITLE START END) for all headings in current buffer.
+;; START and END are line numbers. END is the line before the next heading (or
+;; last line of buffer). No side-effects on other org buffers."
+;;   (let ((ranges '())
+;;         (total-lines (line-number-at-pos (point-max))))
+;;     (org-with-wide-buffer
+;;      (goto-char (point-min))
+;;      (while (re-search-forward org-heading-regexp nil t)
+;;        (push (list
+;;               (org-current-level)
+;;               (line-beginning-position)
+;;               nil)
+;;              ranges))
+;;      (setq ranges (nreverse ranges))
+;;      (cl-loop for cell on ranges do
+;;               (setf (nth 2 (car cell))
+;;                     (if (cdr cell)
+;;                         (- (nth 1 (cadr cell)) 1)
+;;                       total-lines))
 
 
-
-;; make-vector gutter
-
-(defun my/org-heading-ranges ()
-  "Return a list of (LEVEL TITLE START END) for all headings in current buffer.
-START and END are line numbers. END is the line before the next heading (or
-last line of buffer). No side-effects on other org buffers."
-  (let ((ranges '())
-        (total-lines (line-number-at-pos (point-max))))
-    (org-with-wide-buffer
-     (goto-char (point-min))
-     (while (re-search-forward org-heading-regexp nil t)
-       (push (list
-              (org-current-level)
-              (org-get-heading t t t t)   ; no stars, no tags, no todo, no priority
-              (line-number-at-pos (point))
-              nil)                         ; END filled in below
-             ranges))
-     ;; fill in END for each entry: it's (START-of-next - 1), or total-lines
-     (setq ranges (nreverse ranges))
-     (cl-loop for cell on ranges do
-              (setf (nth 3 (car cell))
-                    (if (cdr cell)
-                        (1- (nth 2 (cadr cell)))
-                      total-lines))))
-    ranges))
-
-
-
-
-
+;;               ))
+;;     ranges))
 
 
 
