@@ -156,11 +156,11 @@
          (args (writer-org-08 0 1))
          (width (window-total-width))
          (margin (max 0 (/ (- width max) 2))))
-          (setq-local left-margin-width (margin * args))
-          (setq-local right-margin-width (margin * marg)))
+    (setq-local left-margin-width (margin * args))
+    (setq-local right-margin-width (margin * marg))
+    (setq-local left-fringe-width (+ writer-org-21 26)))
   (when (eq (current-buffer) (window-buffer (selected-window)))
     (set-window-buffer (selected-window) (current-buffer))))
-
 
 (defvar-local writer-org--10 nil
   "Lorem ipsum dolor sit amet.")
@@ -258,21 +258,137 @@
 
 
 
+(defconst writer-org--20
+  (vector #b0000000000000010
+          #b0000000000100010
+          #b0000001000100010
+          #b0010001000100010
+          #b0000000000000110
+          #b0000000001100110
+          #b0000011001100110
+          #b0110000001100110
+          #b0000000000000110
+          #b0000000011000110
+          #b0001100011000110
+          #b0001100011000110
+          #b0000000000001110
+          #b0000000111001110
+          #b0011100111001110
+          #b0011100111001110
+          #b0000000000001110
+          #b0000000011101110
+          #b0000111011101110
+          #b1110111011101110)
+  "OK make-vector hash-table LTR")
 
+(defconst writer-org--22
+  (vector #b0100000000000000
+          #b0100010000000000
+          #b0100010001000000
+          #b0100010001000100
+          #b0110000000000000
+          #b0110011000000000
+          #b0110011001100000
+          #b0110011001100110
+          #b0110000000000000
+          #b0110001100000000
+          #b0110001100011000
+          #b0110001100011000
+          #b0111000000000000
+          #b0111001110000000
+          #b0111001110011100
+          #b0111001110011100
+          #b0111000000000000
+          #b0111011100000000
+          #b0111011101110000
+          #b0111011101110111)
+  "OK make-vector hash-table RTL")
 
+(defvar-local writer-org--21 nil
+  "OK Left fringe width temp holder.")
+
+(defcustom writer-org-25 'default
+  "OK Custom face of vertical line"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-26 'default
+  "OK Custom face of left fridge"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-21 0
+  "OK Left fringe width"
+  :group 'writer-org
+  :type 'integer)
+
+(defcustom writer-org-22 0
+  "OK vertical gap fringe left"
+  :group 'writer-org
+  :type 'integer)
 
 (defcustom writer-org-20 1
   "hierarchy treshold"
   :group 'writer-org
   :type 'integer)
 
-(defun add-000 ()
-  "Collapse heading lines to zero height. Body and children untouched.
-Uses before-string overlay with display spec — closest to CSS display:none."
-  (remove-overlays
-   (point-min)
-   (point-max)
-   'my-heading t))
+(defcustom writer-org-23 1
+  "OK line-styles 0-4"
+  :group 'writer-org
+  :type 'integer)
+
+(defcustom writer-org-24 nil
+  "OK LTR vs RTL Alignment"
+  :group 'writer-org
+  :type 'boolean)
+
+
+(defun writer-org--21s (a b c)
+"Lorem ipsum dolor sit amet"
+  (when (> a writer-org-20)
+    (let* ((ff writer-org--20)
+           (gg writer-org--22)
+           (gap writer-org-22)
+           (bols writer-org-24)
+           (styl writer-org-23)
+           (ov (make-overlay b c))
+           (thr (+ writer-org-20 1))
+           (get (+ (- a thr) (* styl 4)))
+         (yess (aref (if bols gg ff) get))
+         (y (format "writer-org-bm-%d" a))
+         (xx (- (frame-char-height) gap))
+         (bitmap-symb (intern y)))
+      (define-fringe-bitmap bitmap-symb
+        (make-vector xx yess) xx 16)
+      (overlay-put ov 'priority a)
+      (overlay-put ov 'evaporate t)
+      (overlay-put ov 'line-prefix
+                 (propertize " " 'display
+                             (list 'left-fringe
+                                   bitmap-symb
+                                   writer-org-25)
+                             'face writer-org-26))
+      (overlay-put ov 'wrap-prefix
+                 (propertize " " 'display
+                             (list 'left-fringe
+                                   bitmap-symb
+                                   writer-org-25)
+                             'face writer-org-26)))))
+
+
+(defun writer-org--21r (a b)
+  "Lorem ipsum sit dolor amet."
+  (let* ((local writer-org-20)
+         (check (< a (+ local 1)))
+         (st (- (line-end-position) 0))
+         (sl (line-beginning-position))
+         (eol (if check (+ a b 1) st))
+         (bol (if check a (- sl 1)))
+         (ov (make-overlay bol eol)))
+    (overlay-put ov 'my-heading t)
+    (overlay-put ov 'evaporate t)
+    (overlay-put ov 'display "")))
+
 
 (defun add-00s ()
   "Collapse heading lines to zero height. Body and children untouched.
@@ -295,6 +411,35 @@ Uses before-string overlay with display spec — closest to CSS display:none."
         (overlay-put ov 'my-heading t)
         (overlay-put ov 'evaporate t)))))
 
+
+(defun writer-org--23s ()
+  (org-with-wide-buffer
+   (org-element-map
+       (org-element-parse-buffer 'headline)
+       'headline
+     (lambda (h)
+       (writer-org--21r
+        (org-element-property :level h)
+        (org-element-property :begin h))
+       ;; (writer-org--21s
+       ;;  (org-element-property :level h)
+       ;;  (org-element-property :begin h)
+       ;;  (org-element-property :end h))
+       ))))
+
+
+
+;;;;;; tie to key org-keybindings
+;;;;;; tie to key org-keybindings
+
+(defun add-000 ()
+  "Collapse heading lines to zero height. Body and children untouched.
+Uses before-string overlay with display spec — closest to CSS display:none."
+  (remove-overlays
+   (point-min)
+   (point-max)
+   'my-heading t))
+
 (defun add-1 ()
   "Remove all overlays on the current line."
     (add-000)
@@ -311,111 +456,6 @@ Uses before-string overlay with display spec — closest to CSS display:none."
     (add-00))
 
 
-
-
-
-
-
-
-
-(defface writer-org-annotation-fringe
-  '((t :foreground "#7aa2f7" :background unspecified))
-  "Fringe indicator for writer-org annotations.")
-
-
-
-(defconst writer-org--defaults
-  (list :f00 #b1000000000000001
-        :f01 #b1110000110000111
-        :f02 #b0000011111000000
-        :f03 #b1100011111000011
-        ))
-
-(defun writer-org--21s (a b c)
-  (let* ((key (cond ((= a 1) :f01)
-                 ((= a 2) :f02)
-                 ((= a 3) :f03)
-                 (t     :f03)))
-         (yes (plist-get
-               writer-org--defaults key))
-         (bitmap-symb (intern (format "writer-org-bm-%d" a)))))
-         
-   
-    (fringe-mode 10)
-    (define-fringe-bitmap 'writer
-      (make-vector 30 #b0001010101)
-      30 16)
-    (define-fringe-bitmap 'writers
-      (make-vector 30 #b0101010101)
-      30 16)
-
-  (let ((ov (make-overlay b c)))
-    (overlay-put ov 'priority a)
-    (overlay-put ov 'evaporate t)
-    ;; (overlay-put ov 'line-prefix
-    ;;              (propertize " " 'display
-    ;;               '(left-fringe (
-    ;;                              (= a 1)
-    ;;                              writer
-    ;;                              writers) default)
-    ;;               'face 'default))
-    (overlay-put ov 'line-prefix
-                 (propertize " " 'display
-                             (list 'left-fringe
-                                   (if (= a 1) 'writer 'writers)
-                                   'default)))
-    (overlay-put ov 'wrap-prefix
-                 (propertize " " 'display
-                             (list 'left-fringe
-                                   (if (= a 1) 'writer 'writers)
-                                   'default)))
-    ;; (overlay-put ov 'wrap-prefix
-    ;;   (propertize " " 'display
-    ;;               '(left-fringe bitmap-symb default)
-    ;;               'face 'default))
-    ))
-
-
-(defun writer-org--23s ()
-;; (setq-local left-fringe-width 5)
-;; (set-window-fringes (selected-window) 5 nil)
-(set-window-fringes nil 20 10)
-
-  (org-with-wide-buffer
-   (org-element-map
-       (org-element-parse-buffer 'headline)
-       'headline
-     (lambda (h)
-         (writer-org--21s
-         (org-element-property :level h)
-         (org-element-property :begin h)
-         (org-element-property :end h))))))
-
-
-;; (defun writer-org--22 ()
-;;   "Return a list of (LEVEL TITLE START END) for all headings in current buffer.
-;; START and END are line numbers. END is the line before the next heading (or
-;; last line of buffer). No side-effects on other org buffers."
-;;   (let ((ranges '())
-;;         (total-lines (line-number-at-pos (point-max))))
-;;     (org-with-wide-buffer
-;;      (goto-char (point-min))
-;;      (while (re-search-forward org-heading-regexp nil t)
-;;        (push (list
-;;               (org-current-level)
-;;               (line-beginning-position)
-;;               nil)
-;;              ranges))
-;;      (setq ranges (nreverse ranges))
-;;      (cl-loop for cell on ranges do
-;;               (setf (nth 2 (car cell))
-;;                     (if (cdr cell)
-;;                         (- (nth 1 (cadr cell)) 1)
-;;                       total-lines))
-
-
-;;               ))
-;;     ranges))
 
 
 
@@ -495,6 +535,19 @@ Uses before-string overlay with display spec — closest to CSS display:none."
 
 
 
+(defun writer-org--redefine-bitmaps ()
+  (dolist (i '(1 2 3))
+    (define-fringe-bitmap
+      (intern (format "writer-org-bm-%d" i))
+      (make-vector (frame-char-height)
+                   (aref writer-org--bitmaps (1- i)))
+      (frame-char-height) 16)))
+
+;; redefine on text scale change
+(add-hook 'text-scale-mode-hook #'writer-org--redefine-bitmaps)
+
+
+
 (defun writer-org--40 ()
   "compute sentence"
   )
@@ -511,8 +564,9 @@ Uses before-string overlay with display spec — closest to CSS display:none."
 
 (defun writer-org-enable ()
   "Lorem ipsum dolor sit amet."
-  (setq writer-org--00 left-margin-width)
-  (setq writer-org--01 right-margin-width)
+  (setq writer-org--21 left-fringe-width)
+  (setq writer-org--02 left-margin-width)
+  (setq writer-org--03 right-margin-width)
   (writer-org--10)
   (writer-org--11)
   (writer-org--20)
@@ -530,6 +584,7 @@ Uses before-string overlay with display spec — closest to CSS display:none."
 
 (defun writer-org-disable ()
   "Lorem ipsum dolor sit amet."
+  (setq-local left-fringe-width writer-org--21)
   (setq-local left-margin-width writer-org--02)
   (setq-local right-margin-width writer-org--03)
   (setq writer-org--02 nil)

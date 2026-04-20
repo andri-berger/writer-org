@@ -3,6 +3,10 @@
 * 00 afsdfasodifjsa
 00 - Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita sadfjasd foiwje flaskdfjasdofijqwefoqiwjflaksjfd asfwoei jasdlkfjsad ofijqwoef ijaslkfdj oqiwjef oqiw jelaksj fdoisajfd safdo ijqwoeifjowqie. asdfas lkjasdfoijasdflkjasdf aosidjf oiajsdfasdijfasdfsadfoaisjdfasdflasdkfjlsakdf
 
+(defcustom writer-org-24 0
+  "hierarchy count II"
+  :group 'writer-org
+  :type 'integer)
 * 03 asdofisaasfddf
 03 - Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
 suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
@@ -34,25 +38,33 @@ suscipit lobortis nisl ut aliquip ex ea commodo consequat.
 07 - Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.   aslkdfjsadlkfjaksljdfasdkfkkasdfj wojwoeij falksdfosaidjfsadlkf joiejo ijwefasdfasdfa asjdf
 asdflajsdf aslkdf osidjf oqiwjef laskdjf oasijfd qwlfkj alskdfj oijwe oijaslkdfjoasi jdsdafoijsadfalk joiwej oisajfdasdjfo
 
-** testlauf jetzt !!!a
+** testlauf fetzt !!!a
 afdlksajdf oaisdjfo qiwelaksdfalknlkn
-asdflaksjdfsadofijsadf
+asdfasflk asfdlkjsafdoisajdf osaidf
+
+ajdf
+asldkfjsaldkfjas flsakdjf
+asodfijsaodif
+asdfaksasfdasd fowijefwoefijsdfsdfwefoijsdf oiwje owijoijsdfsodijf owiejfowiejfweofiwje sodfijsdofi joweifjwoeif jwoeifjwoeifjowiejfoijwoeifjwoeifjwoeifjwoeifjwoeifjwoeifjwoeifjwoeifjwoeifjwoeifjoijweofiwjefoiwjefoiwjefoiwjefoi jweofijwe sdofijweof iwjeofi josidjfosidfjoijewoijfoisjdofisjdfoi sdofijwoeifjwoeif jsoidfj sodifj soidfj
 
 *** testlauf noch-einmal !!!!
+owijefowiejf
 asdflkasjdflsakdf
 asfdlaksjdfasdflkasjdfosadjf
+ijeofijweofijw
+asdlfkjsadfasoidfj qwoeijasdflaksjfdsad oijweofi wjoiajsfdoiasjdfoisajdfo oefijweofijaasldkfjsadlfjasdofij
 
-
-asdfasl as alks da lkjas dfasdf
-asdflasdkj asdflksajdf
-
-
-
+**** sfdoiasjdfsadf
+asdfasd sdfasl as alks da lkjas dfasdf
+asdfsadfoasidj
+fasdfoi jsadofisajd foiqjweof ijqweo i
+asfdasdföksafd ijsaodifjqowie   
+jfqoweifjoqwiejfoiasjfdoisajfdoisadjfosaidf
 * 01 asfdoisajdfasdf
 01 - asd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed  diam voluptua.
 
 * 06 asfdoiajsd faskdf
-06 - Nam liber tempor cum soluta nobis eleifend option congue nihil
+06 - Nam liber tempor cu  soluta nobis eleifend option congue nihil
 imperdiet doming id quod mazim placerat facer possim assum. Lorem
 ipsum doa sdfjoiwje jslkdfjsoidjfwoiesdfkl woisd sdoifjlksdf
 sdfoisdflskdf sdflksdf sdflksdf. lor sit amet, consectetuer adipiscing
