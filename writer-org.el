@@ -328,7 +328,7 @@
   :type 'integer)
 
 (defcustom writer-org-20 1
-  "hierarchy treshold"
+  "OK hierarchy treshold"
   :group 'writer-org
   :type 'integer)
 
@@ -343,7 +343,23 @@
   :type 'boolean)
 
 
-(defun writer-org--21s (a b c)
+
+(defun writer-org--20t ()
+  (org-with-wide-buffer
+   (org-element-map
+       (org-element-parse-buffer 'headline)
+       'headline
+     (lambda (h)
+       (writer-org--22t
+        (org-element-property :level h)
+        (org-element-property :begin h))
+       ;; (writer-org--21t
+       ;;  (org-element-property :level h)
+       ;;  (org-element-property :begin h)
+       ;;  (org-element-property :end h))
+       ))))
+
+(defun writer-org--21t (a b c)
 "Lorem ipsum dolor sit amet"
   (when (> a writer-org-20)
     (let* ((ff writer-org--20)
@@ -375,57 +391,20 @@
                                    writer-org-25)
                              'face writer-org-26)))))
 
-
-(defun writer-org--21r (a b)
+(defun writer-org--22t (a b)
   "Lorem ipsum sit dolor amet."
   (let* ((local writer-org-20)
          (check (< a (+ local 1)))
          (st (- (line-end-position) 0))
          (sl (line-beginning-position))
-         (eol (if check (+ a b 1) st))
-         (bol (if check a (- sl 1)))
+         (eol (if check (+ b a 1) st))
+         (bol (if check b (- sl 1)))
          (ov (make-overlay bol eol)))
     (overlay-put ov 'my-heading t)
     (overlay-put ov 'evaporate t)
     (overlay-put ov 'display "")))
 
 
-(defun add-00s ()
-  "Collapse heading lines to zero height. Body and children untouched.
-Uses before-string overlay with display spec — closest to CSS display:none."
-  (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward
-            org-heading-regexp nil t)
-      (let* ((local writer-org-20)
-             (test (+ (match-end 1) 1))
-             (test0 (match-beginning 1))
-             (lev (org-current-level))
-             (l (line-beginning-position))
-             (eol (if (<= lev (+ local 0))
-                      test (line-end-position)))
-             (bol (if (<= lev (+ local 0))
-                    test0 (- l 1)))
-             (ov (make-overlay bol eol)))
-        (overlay-put ov 'display "")
-        (overlay-put ov 'my-heading t)
-        (overlay-put ov 'evaporate t)))))
-
-
-(defun writer-org--23s ()
-  (org-with-wide-buffer
-   (org-element-map
-       (org-element-parse-buffer 'headline)
-       'headline
-     (lambda (h)
-       (writer-org--21r
-        (org-element-property :level h)
-        (org-element-property :begin h))
-       ;; (writer-org--21s
-       ;;  (org-element-property :level h)
-       ;;  (org-element-property :begin h)
-       ;;  (org-element-property :end h))
-       ))))
 
 
 
@@ -446,14 +425,14 @@ Uses before-string overlay with display spec — closest to CSS display:none."
     (outline-back-to-heading t)
     (org-move-subtree-down)
     (forward-line 1)
-    (add-00s))
+    (writer-org--22))
 
 (defun add-2 ()
   "Remove all overlays on the current line."
     (add-000)
     (outline-back-to-heading t)
     (org-move-subtree-up)
-    (add-00))
+    (writer-org--22))
 
 
 
