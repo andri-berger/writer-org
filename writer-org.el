@@ -58,39 +58,94 @@
 
 
 
-
 (defgroup writer-org nil
   "Writing layout for org buffers."
   :prefix "writer-org-"
   :group 'text)
 
-(defvar writer-org--00
-  '(org-next-visible-heading
-    org-previous-visible-heading
-    org-forward-heading-same-level
-    org-backward-heading-same-level
+(defconst writer-org--20
+  (vector #b0000000000000010
+          #b0000000000100010
+          #b0000001000100010
+          #b0010001000100010
+          #b0000000000000110
+          #b0000000001100110
+          #b0000011001100110
+          #b0110000001100110
+          #b0000000000000110
+          #b0000000011000110
+          #b0001100011000110
+          #b0001100011000110
+          #b0000000000001110
+          #b0000000111001110
+          #b0011100111001110
+          #b0011100111001110
+          #b0000000000001110
+          #b0000000011101110
+          #b0000111011101110
+          #b1110111011101110)
+  "OK make-vector hash-table LTR")
+
+(defconst writer-org--22
+  (vector #b0100000000000000
+          #b0100010000000000
+          #b0100010001000000
+          #b0100010001000100
+          #b0110000000000000
+          #b0110011000000000
+          #b0110011001100000
+          #b0110011001100110
+          #b0110000000000000
+          #b0110001100000000
+          #b0110001100011000
+          #b0110001100011000
+          #b0111000000000000
+          #b0111001110000000
+          #b0111001110011100
+          #b0111001110011100
+          #b0111000000000000
+          #b0111011100000000
+          #b0111011101110000
+          #b0111011101110111)
+  "OK make-vector hash-table RTL")
+
+(defconst writer-org--00
+  '(org-next-link
+    org-next-item
     org-up-heading
     org-next-block
+    org-previous-link
+    org-previous-item
     org-previous-block
     org-forward-element
     org-backward-element
     org-forward-paragraph
     org-backward-paragraph
-    org-next-item
-    org-previous-item
-    org-next-link
-    org-previous-link)
+    org-next-visible-heading
+    org-previous-visible-heading
+    org-forward-heading-same-level
+    org-backward-heading-same-level)
     "Lorem ipsum dolor sit amet.")
 
-(defvar writer-org--01
+(defconst writer-org--01
   '(newline
+    kill-line
+    kill-word
     self-insert
     delete-char
-    delete-variants
+    backward-kill-word
     newline-and-indent
     self-insert-command
+    delete-backward-char
     backward-delete-char-untabify)
-    "Lorem ipsum dolor sit amet.")
+  "Lorem ipsum dolor sit amet.")
+
+
+
+
+
+
+
 
 (defvar-local writer-org--02 nil
   "Lorem ipsum dolor sit amet.")
@@ -100,6 +155,14 @@
 
 (defvar-local writer-org--04 nil
   "Lorem ipsum dolor sit amet.")
+
+
+
+
+
+
+
+
 
 (defcustom writer-org-05 nil
   "Enable typing-mode"
@@ -125,6 +188,14 @@
   "Max-width in pixel"
   :group 'writer-org
   :type 'integer)
+
+
+
+
+
+
+
+
 
 
 (defun writer-org--00 ()
@@ -258,62 +329,18 @@
 
 
 
-(defconst writer-org--20
-  (vector #b0000000000000010
-          #b0000000000100010
-          #b0000001000100010
-          #b0010001000100010
-          #b0000000000000110
-          #b0000000001100110
-          #b0000011001100110
-          #b0110000001100110
-          #b0000000000000110
-          #b0000000011000110
-          #b0001100011000110
-          #b0001100011000110
-          #b0000000000001110
-          #b0000000111001110
-          #b0011100111001110
-          #b0011100111001110
-          #b0000000000001110
-          #b0000000011101110
-          #b0000111011101110
-          #b1110111011101110)
-  "OK make-vector hash-table LTR")
 
-(defconst writer-org--22
-  (vector #b0100000000000000
-          #b0100010000000000
-          #b0100010001000000
-          #b0100010001000100
-          #b0110000000000000
-          #b0110011000000000
-          #b0110011001100000
-          #b0110011001100110
-          #b0110000000000000
-          #b0110001100000000
-          #b0110001100011000
-          #b0110001100011000
-          #b0111000000000000
-          #b0111001110000000
-          #b0111001110011100
-          #b0111001110011100
-          #b0111000000000000
-          #b0111011100000000
-          #b0111011101110000
-          #b0111011101110111)
-  "OK make-vector hash-table RTL")
+
+
+  
+
+
 
 (defvar-local writer-org--21 nil
   "OK Left fringe width temp holder.")
 
 (defcustom writer-org-25 'default
   "OK Custom face of vertical line"
-  :group 'writer-org
-  :type 'string)
-
-(defcustom writer-org-26 'default
-  "OK Custom face of left fridge"
   :group 'writer-org
   :type 'string)
 
@@ -342,25 +369,20 @@
   :group 'writer-org
   :type 'boolean)
 
+(defun writer-org--21 (a b c)
+  "Lorem ipsum sit dolor amet."
+  (let* ((add (+ b a 1))
+         (local writer-org-20)
+         (check (< a (+ local 1)))
+         (bol (if check b (- b 1)))
+         (eol (if check add (- c 1)))
+         (ov (make-overlay bol eol)))
+    (overlay-put ov 'writer-org t)
+    (overlay-put ov 'evaporate t)
+    (overlay-put ov 'display "")))
 
-
-(defun writer-org--20t ()
-  (org-with-wide-buffer
-   (org-element-map
-       (org-element-parse-buffer 'headline)
-       'headline
-     (lambda (h)
-       (writer-org--22t
-        (org-element-property :level h)
-        (org-element-property :begin h))
-       ;; (writer-org--21t
-       ;;  (org-element-property :level h)
-       ;;  (org-element-property :begin h)
-       ;;  (org-element-property :end h))
-       ))))
-
-(defun writer-org--21t (a b c)
-"Lorem ipsum dolor sit amet"
+(defun writer-org--20 (a b c)
+"Lorem ipsum dolor sit amet."
   (when (> a writer-org-20)
     (let* ((ff writer-org--20)
            (gg writer-org--22)
@@ -370,69 +392,43 @@
            (ov (make-overlay b c))
            (thr (+ writer-org-20 1))
            (get (+ (- a thr) (* styl 4)))
-         (yess (aref (if bols gg ff) get))
-         (y (format "writer-org-bm-%d" a))
-         (xx (- (frame-char-height) gap))
-         (bitmap-symb (intern y)))
+           (yess (aref (if bols gg ff) get))
+           (y (format "writer-org-bm-%d" a))
+           (xx (- (frame-char-height) gap))
+           (bitmap-symb (intern y)))
       (define-fringe-bitmap bitmap-symb
         (make-vector xx yess) xx 16)
-      (overlay-put ov 'priority a)
+      (overlay-put ov 'writer-org t)
       (overlay-put ov 'evaporate t)
+      (overlay-put ov 'priority a)
       (overlay-put ov 'line-prefix
-                 (propertize " " 'display
-                             (list 'left-fringe
-                                   bitmap-symb
-                                   writer-org-25)
-                             'face writer-org-26))
+                   (propertize " " 'display
+                               (list 'left-fringe
+                                     bitmap-symb
+                                     writer-org-25)))
       (overlay-put ov 'wrap-prefix
-                 (propertize " " 'display
-                             (list 'left-fringe
-                                   bitmap-symb
-                                   writer-org-25)
-                             'face writer-org-26)))))
+                   (propertize " " 'display
+                               (list 'left-fringe
+                                     bitmap-symb
+                                     writer-org-25))))))
 
-(defun writer-org--22t (a b)
+(defun writer-org--22 ()
   "Lorem ipsum sit dolor amet."
-  (let* ((local writer-org-20)
-         (check (< a (+ local 1)))
-         (st (- (line-end-position) 0))
-         (sl (line-beginning-position))
-         (eol (if check (+ b a 1) st))
-         (bol (if check b (- sl 1)))
-         (ov (make-overlay bol eol)))
-    (overlay-put ov 'my-heading t)
-    (overlay-put ov 'evaporate t)
-    (overlay-put ov 'display "")))
-
-
-
-
-
-;;;;;; tie to key org-keybindings
-;;;;;; tie to key org-keybindings
-
-(defun add-000 ()
-  "Collapse heading lines to zero height. Body and children untouched.
-Uses before-string overlay with display spec — closest to CSS display:none."
-  (remove-overlays
-   (point-min)
-   (point-max)
-   'my-heading t))
-
-(defun add-1 ()
-  "Remove all overlays on the current line."
-    (add-000)
-    (outline-back-to-heading t)
-    (org-move-subtree-down)
-    (forward-line 1)
-    (writer-org--22))
-
-(defun add-2 ()
-  "Remove all overlays on the current line."
-    (add-000)
-    (outline-back-to-heading t)
-    (org-move-subtree-up)
-    (writer-org--22))
+  (org-with-wide-buffer
+   (org-element-map
+       (org-element-parse-buffer
+        'headline)
+       'headline
+     (lambda (h)
+       (writer-org--20
+        (org-element-property :level h)
+        (org-element-property :begin h)
+        (org-element-property :end h))
+       (writer-org--21
+        (org-element-property :level h)
+        (org-element-property :begin h)
+        (org-element-property
+         :contents-begin h))))))
 
 
 
@@ -495,6 +491,24 @@ Uses before-string overlay with display spec — closest to CSS display:none."
   (when writer-org-mode
     (message "writer-org-33")))
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;;;; keybinding-functionalities
+;;;;; keybinding-functionalities
+
 (defun writer-org-34 ()
   "Lorem ipsum dolor sit amet."
   (interactive)
@@ -512,18 +526,15 @@ Uses before-string overlay with display spec — closest to CSS display:none."
               #'writer-org--00 nil t)
     (message "writer-org-34")))
 
-
-
-(defun writer-org--redefine-bitmaps ()
-  (dolist (i '(1 2 3))
-    (define-fringe-bitmap
-      (intern (format "writer-org-bm-%d" i))
-      (make-vector (frame-char-height)
-                   (aref writer-org--bitmaps (1- i)))
-      (frame-char-height) 16)))
-
-;; redefine on text scale change
-(add-hook 'text-scale-mode-hook #'writer-org--redefine-bitmaps)
+(defun writer-org--23 (orig-fn &rest args)
+  "Lorem ipsum sit dolor amet.."
+    (remove-overlays
+     (point-min)
+     (point-max)
+     'writer-org t)
+    (outline-back-to-heading t)
+    (apply orig-fn args)    
+    (writer-org--22))
 
 
 
@@ -559,6 +570,16 @@ Uses before-string overlay with display spec — closest to CSS display:none."
   (add-hook
    'window-size-change-functions
    #'writer-org--41)
+(advice-add 'org-demote :around #'writer-org--23)
+(advice-add 'org-promote :around #'writer-org--23)
+(advice-add 'org-cut-subtree :around #'writer-org--23)
+(advice-add 'org-copy-subtree :around #'writer-org--23)
+(advice-add 'org-paste-subtree :around #'writer-org--23)
+(advice-add 'org-demote-subtree :around #'writer-org--23)
+(advice-add 'org-promote-subtree :around #'writer-org--23)
+(advice-add 'org-move-subtree-up :around #'writer-org--23)
+(advice-add 'org-narrow-to-subtree :around #'writer-org--23)
+(advice-add 'org-move-subtree-down :around #'writer-org--23)
   (message "writer-org-enable"))
 
 (defun writer-org-disable ()
@@ -581,7 +602,18 @@ Uses before-string overlay with display spec — closest to CSS display:none."
   (kill-local-variable 'scroll-conservatively)
   (kill-local-variable 'scroll-up-aggressively)
   (kill-local-variable 'scroll-down-aggressively)
-  (remove-overlays)
+  (remove-overlays (point-min) (point-max)
+                   'writer-org t)
+  (advice-remove 'org-demote #'writer-org--23)
+  (advice-remove 'org-promote #'writer-org--23)
+  (advice-remove 'org-cut-subtree #'writer-org--23)
+  (advice-remove 'org-copy-subtree #'writer-org--23)
+  (advice-remove 'org-paste-subtree #'writer-org--23)
+  (advice-remove 'org-demote-subtree #'writer-org--23)
+  (advice-remove 'org-promote-subtree #'writer-org--23)
+  (advice-remove 'org-move-subtree-up #'writer-org--23)
+  (advice-remove 'org-narrow-to-subtree #'writer-org--23)
+  (advice-remove 'org-move-subtree-down #'writer-org--23)
   (message "writer-org-disable"))
 
 
