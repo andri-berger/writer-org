@@ -64,49 +64,49 @@
   :group 'text)
 
 (defconst writer-org--20
-  (vector #b0000000000000010
-          #b0000000000100010
-          #b0000001000100010
-          #b0010001000100010
-          #b0000000000000110
-          #b0000000001100110
-          #b0000011001100110
-          #b0110000001100110
-          #b0000000000000110
-          #b0000000011000110
-          #b0001100011000110
-          #b0001100011000110
-          #b0000000000001110
-          #b0000000111001110
-          #b0011100111001110
-          #b0011100111001110
-          #b0000000000001110
-          #b0000000011101110
-          #b0000111011101110
-          #b1110111011101110)
+  '[#b0000000000000010
+    #b0000000000100010
+    #b0000001000100010
+    #b0010001000100010
+    #b0000000000000110
+    #b0000000001100110
+    #b0000011001100110
+    #b0110000001100110
+    #b0000000000000110
+    #b0000000011000110
+    #b0001100011000110
+    #b0001100011000110
+    #b0000000000001110
+    #b0000000111001110
+    #b0011100111001110
+    #b0011100111001110
+    #b0000000000001110
+    #b0000000011101110
+    #b0000111011101110
+    #b1110111011101110]
   "OK make-vector hash-table LTR")
 
 (defconst writer-org--22
-  (vector #b0100000000000000
-          #b0100010000000000
-          #b0100010001000000
-          #b0100010001000100
-          #b0110000000000000
-          #b0110011000000000
-          #b0110011001100000
-          #b0110011001100110
-          #b0110000000000000
-          #b0110001100000000
-          #b0110001100011000
-          #b0110001100011000
-          #b0111000000000000
-          #b0111001110000000
-          #b0111001110011100
-          #b0111001110011100
-          #b0111000000000000
-          #b0111011100000000
-          #b0111011101110000
-          #b0111011101110111)
+  '[#b0100000000000000
+    #b0100010000000000
+    #b0100010001000000
+    #b0100010001000100
+    #b0110000000000000
+    #b0110011000000000
+    #b0110011001100000
+    #b0110011001100110
+    #b0110000000000000
+    #b0110001100000000
+    #b0110001100011000
+    #b0110001100011000
+    #b0111000000000000
+    #b0111001110000000
+    #b0111001110011100
+    #b0111001110011100
+    #b0111000000000000
+    #b0111011100000000
+    #b0111011101110000
+    #b0111011101110111]
   "OK make-vector hash-table RTL")
 
 (defconst writer-org--00
@@ -140,26 +140,23 @@
     backward-delete-char-untabify)
   "Lorem ipsum dolor sit amet.")
 
-
-
-
-
-
-
-
 (defvar-local writer-org--02 nil
-  "Lorem ipsum dolor sit amet.")
+  "Temporary var left-margin-width.")
 
 (defvar-local writer-org--03 nil
-  "Lorem ipsum dolor sit amet.")
+  "Temporary var right-margin-width.")
 
 (defvar-local writer-org--04 nil
-  "Lorem ipsum dolor sit amet.")
+  "Global var ratio (unclear) ????.")
 
+(defvar-local writer-org--10 nil
+  "Clean var set-face-remap header")
 
+(defvar-local writer-org--11 nil
+  "Clean var set-face-remap mode")
 
-
-
+(defvar-local writer-org--21 nil
+  "Temporary var left-fringe-width.")
 
 
 
@@ -189,59 +186,12 @@
   :group 'writer-org
   :type 'integer)
 
-
-
-
-
-
-
-
-
-
-(defun writer-org--00 ()
-  "Lorem ipsum dolor sit amet."
-  (unless writer-org-mode
-    (let* ((rati this-command)
-           (ratio writer-org--04)
-           (ratio0 writer-org-05)
-           (ratio1 writer-org-06)
-           (ratio2 writer-org-07)
-           (ratios0 writer-org--00)
-           (ratios1 writer-org--01)
-           (start (window-start))
-           (offset (count-lines
-                    start (point)))
-           (tt (memq rati ratios0))
-           (ss (memq rati ratios1)))
-      (when (> (abs (- offset ratio)) 0)
-        (when (or (and tt ratio0)
-                  (and ss ratio1)
-                  (and ratio2 and
-                       (not (or tt ss))))
-          (recenter ratio))))))
-
-(defun writer-org--01 ()
-  "Lorem ipsum dolor sit amet."
-  (let* ((max writer-org-09)
-         (marg (writer-org-08 2 1))
-         (args (writer-org-08 0 1))
-         (width (window-total-width))
-         (margin (max 0 (/ (- width max) 2))))
-    (setq-local left-margin-width (margin * args))
-    (setq-local right-margin-width (margin * marg))
-    (setq-local left-fringe-width (+ writer-org-21 26)))
-  (when (eq (current-buffer) (window-buffer (selected-window)))
-    (set-window-buffer (selected-window) (current-buffer))))
-
-(defvar-local writer-org--10 nil
-  "Lorem ipsum dolor sit amet.")
-
-(defcustom writer-org-11 'default
+(defcustom writer-org-11 unspecified
   "faces inherit header line"
   :group 'writer-org
   :type 'string)
 
-(defcustom writer-org-12 'default
+(defcustom writer-org-12 unspecified
   "faces inherit mode line"
   :group 'writer-org
   :type 'string)
@@ -296,49 +246,6 @@
                  (const :tag "Right" right)
                  (const :tag "Center" center)))
 
-
-(defun writer-org--10 ()
-(setq writer-org--10
-            (face-remap-add-relative 'header-line
-                                     :underline '(:style line :position t)
-                                     :overline t))  
-(setq-local header-line-format
-            '((:eval (propertize
-                      (format "%d/%d %d/%d Lorem Ipsum dolor sit!"
-                              (+ 1 (count-words (point-min) (point)))
-                              (+ 1 (count-words (point-min) (point-max)))
-                              (+ 1 (count-lines (point-min) (point)))
-                              (+ 1 (count-lines (point-min) (point-max))))
-                      'face '(:underline (:inherit default :position t)))))))
-
-(defun writer-org--11 ()
-(setq writer-org--10
-            (face-remap-add-relative 'mode-line
-                                     :underline '(:style line :position t)
-                                     :overline t))  
-(setq-local mode-line-format
-            '((:eval (propertize
-                      (format "%d/%d %d/%d Lorem Ipsum dolor sit!"
-                              (+ 1 (count-words (point-min) (point)))
-                              (+ 1 (count-words (point-min) (point-max)))
-                              (+ 1 (count-lines (point-min) (point)))
-                              (+ 1 (count-lines (point-min) (point-max))))
-                      'face '(:underline (:inherit default :position t)))))))
-
-
-
-
-
-
-
-
-  
-
-
-
-(defvar-local writer-org--21 nil
-  "OK Left fringe width temp holder.")
-
 (defcustom writer-org-25 'default
   "OK Custom face of vertical line"
   :group 'writer-org
@@ -368,6 +275,103 @@
   "OK LTR vs RTL Alignment"
   :group 'writer-org
   :type 'boolean)
+
+
+
+
+
+
+
+(defun writer-org--00 ()
+  "Lorem ipsum dolor sit amet."
+  (unless writer-org-mode
+    (let* ((rati this-command)
+           (ratio writer-org--04)
+           (ratio0 writer-org-05)
+           (ratio1 writer-org-06)
+           (ratio2 writer-org-07)
+           (ratios0 writer-org--00)
+           (ratios1 writer-org--01)
+           (start (window-start))
+           (offset (count-lines
+                    start (point)))
+           (tt (memq rati ratios0))
+           (ss (memq rati ratios1)))
+      (when (> (abs (- offset ratio)) 0)
+        (when (or (and tt ratio0)
+                  (and ss ratio1)
+                  (and ratio2 and
+                       (not (or tt ss))))
+          (recenter ratio))))))
+
+(defun writer-org--01 ()
+  "Lorem ipsum dolor sit amet."
+  (let* ((max writer-org-09)
+         (marg (writer-org-08 2 1))
+         (args (writer-org-08 0 1))
+         (width (window-total-width))
+         (margin (max 0 (/ (- width max) 2))))
+    (setq-local left-margin-width (margin * args))
+    (setq-local right-margin-width (margin * marg))
+    (setq-local left-fringe-width (+ writer-org-21 26)))
+  (when (eq (current-buffer) (window-buffer (selected-window)))
+    (set-window-buffer (selected-window) (current-buffer))))
+
+
+
+;; (let ((face-spec (list :underline (list :style 'line
+;;                                         :position t)
+;;                        :overline t)))
+;;   (face-remap-add-relative 'mode-line face-spec))
+
+;; (let* ((underline-spec (list :style    'line
+;;                              :position t))
+;;        (overline-spec  t)
+;;        (face-spec      (list :underline underline-spec
+;;                              :overline  overline-spec)))
+;;   (face-remap-add-relative 'mode-line face-spec))
+
+
+
+(defun writer-separate (a b c)
+(setq writer-org--10
+      (face-remap-add-relative
+       c
+       (list :overline t
+             :underline
+             (list :style line
+                   :position t)
+             :inherit writer-org-11))))
+
+(defun writer-org--10 (a b c)
+  (concat
+   (if (a and b) "%d/%d" "")
+   (if c "%d" "")
+   (if d "%d" ""))
+  (let ((form ("%d/%d %d" a b c)))
+    (setq-local c (list (propertize
+                       (format form)
+                       'face (list :overline t
+                                   :underline
+                                   (list :style line
+                                         :position t)
+                                   :inherit writer-org-12))))))
+
+(defun writer-org--11 ()  
+  (let (vector (aa (+ 1 (count-words (point-min) (point))))
+        (bb (+ 1 (count-words (point-min) (point-max))))
+        (cc (+ 1 (count-lines (point-min) (point))))
+        (dd (+ 1 (count-lines (point-min) (point-max)))))
+    (writer-org--10 "" "" header-line-format)
+    (writer-org--10 "" "" mode-line-format)
+    (writer-separate "" "" 'header-line)
+    (writer-separate "" "" 'mode-line)))
+
+
+
+
+
+
 
 (defun writer-org--21 (a b c)
   "Lorem ipsum sit dolor amet."
@@ -449,7 +453,6 @@
 ;; window-start
 ;; window-end
 ;; window-end nil t
-
 
 (defun writer-org-30 ()
   "Lorem ipsum dolor sit amet."
