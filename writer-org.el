@@ -235,16 +235,18 @@
 (defcustom writer-org-17 'left
   "lines config header"
   :group 'writer-org
-  :type '(choice (const :tag "Left" left)
-                 (const :tag "Right" right)
-                 (const :tag "Center" center)))
+  :type '(choice (const :tag "None" nil)
+                 (const :tag "Both" both)
+                 (const :tag "Top" top)
+                 (const :tag "Bottom" bottom)))
 
 (defcustom writer-org-18 'left
   "lines config mode"
   :group 'writer-org
-  :type '(choice (const :tag "Left" left)
-                 (const :tag "Right" right)
-                 (const :tag "Center" center)))
+  :type '(choice (const :tag "None" nil)
+                 (const :tag "Both" both)
+                 (const :tag "Top" top)
+                 (const :tag "Bottom" bottom)))
 
 (defcustom writer-org-25 'default
   "OK Custom face of vertical line"
