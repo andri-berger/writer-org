@@ -140,6 +140,9 @@
     backward-delete-char-untabify)
   "Lorem ipsum dolor sit amet.")
 
+
+
+
 (defvar-local writer-org--02 nil
   "Temporary var left-margin-width.")
 
@@ -157,6 +160,8 @@
 
 (defvar-local writer-org--21 nil
   "Temporary var left-fringe-width.")
+
+
 
 
 
@@ -185,6 +190,7 @@
   "Max-width in pixel"
   :group 'writer-org
   :type 'integer)
+
 
 
 
@@ -228,10 +234,18 @@
   :group 'writer-org
   :type 'string)
 
+
+
+
 (defcustom writer-org-25 'default
   "OK Custom face of vertical line"
   :group 'writer-org
   :type 'string)
+
+(defcustom writer-org-24 nil
+  "OK LTR vs RTL Alignment"
+  :group 'writer-org
+  :type 'boolean)
 
 (defcustom writer-org-21 0
   "OK Left fringe width"
@@ -253,49 +267,49 @@
   :group 'writer-org
   :type 'integer)
 
-(defcustom writer-org-24 nil
-  "OK LTR vs RTL Alignment"
-  :group 'writer-org
-  :type 'boolean)
-
 
 
 
 
 (defun writer-org--01 ()
-  "Lorem ipsum dolor sit amet."
-  (let* ((max writer-org-09)
-         (marg (writer-org-08 2 1))
-         (args (writer-org-08 0 1))
-         (width (window-total-width))
-         (margin (max (/ (- width max) 2) 0)))
-    (setq-local left-margin-width (margin * args))
-    (setq-local right-margin-width (margin * marg))
-    (setq-local left-fringe-width (+ writer-org-21 26)))
-  (when (eq (current-buffer) (window-buffer (selected-window)))
-    (set-window-buffer (selected-window) (current-buffer))))
+  "OK Lorem ipsum dolor sit amet."
+  (let* ((l0 writer-org-09)
+         (l1 writer-org-21)
+         (l2 (writer-org-08 2 1))
+         (l3 (writer-org-08 0 1))
+         (l4 (window-total-width))
+         (l5 (max (/ (- l4 l0) 2) 0)))
+    (setq-local left-margin-width (l5 * l3))
+    (setq-local right-margin-width (l5 * l2))
+    (setq-local left-fringe-width (+ l1 26)))
+  (when (eq (current-buffer)
+            (window-buffer
+             (selected-window)))
+    (set-window-buffer
+     (selected-window)
+     (current-buffer))))
 
 (defun writer-org--00 ()
-  "Lorem ipsum dolor sit amet."
-    (let* ((rati this-command)
-           (ratio writer-org--04)
-           (ratio0 writer-org-05)
-           (ratio1 writer-org-06)
-           (ratio2 writer-org-07)
-           (ratios0 writer-org--00)
-           (ratios1 writer-org--01)
-           (start (window-start))
-           (offset (count-lines
-                    start (point)))
-           (tt (memq rati ratios0))
-           (ss (memq rati ratios1)))
-      (writer-test)
-      (when (> (abs (- offset ratio)) 0)
-        (when (or (and tt ratio0)
-                  (and ss ratio1)
-                  (and ratio2
-                       (not (or tt ss))))
-          (recenter ratio)))))
+  "OK Lorem ipsum dolor sit amet."
+    (let* ((l0 this-command)
+           (l1 writer-org--04)
+           (l2 writer-org-05)
+           (l3 writer-org-06)
+           (l4 writer-org-07)
+           (l5 writer-org--00)
+           (l6 writer-org--01)
+           (l7 (count-lines
+                (window-start)
+                (point)))
+           (l8 (memq l0 l5))
+           (l9 (memq l0 l6)))
+      (when (> (abs (- l7 l1)) 0)
+        (when (or (and l8 l2)
+                  (and l9 l3)
+                  (and l4
+                       (not
+                        (or l9 l9))))
+          (recenter l1)))))
 
 (defun writer-org--10
     (f0 f1 f2 f3 f4 f5 f6)
@@ -327,77 +341,75 @@
                                   )))))))))
 
 (defun writer-test ()
-  "Lorem ipsum dolor sit amet."
-  (let* ((oxc writer-org-170)
-         (os writer-org-180)
-         (on writer-org-14)
-         (om writer-org-13)
-         (ch (org-before-first-heading-p))
-         (aa (+ (count-words (point-min) (point)) 1))
-         (cc (+ (count-lines (point-min) (point)) 1))
-         (bb (+ (count-words (point-min) (point-max)) 1))
-         (dd (+ (count-lines (point-min) (point-max)) 1))
-         (bol (aref (vector "" (point-max) aa cc) om))
-         (eol (aref (vector "" (point) bb dd) on))
-         (srr (or (and (not ch)
+  "OK Lorem ipsum dolor sit amet."
+  (let* ((l0 writer-org-170)
+         (l1 writer-org-180)
+         (l2 writer-org-14)
+         (l3 writer-org-13)
+         (l4 (org-before-first-heading-p))
+         (l5 (+ (count-words (point-min) (point)) 1))
+         (l6 (+ (count-lines (point-min) (point)) 1))
+         (l7 (+ (count-words (point-min) (point-max)) 1))
+         (l8 (+ (count-lines (point-min) (point-max)) 1))
+         (l9 (aref (vector "" (point-max) l5 l6) l3))
+         (l10 (aref (vector "" (point) l7 l8) l2))
+         (l11 (or (and (not l4)
                        (save-excursion
                          (org-back-to-heading t)
-                         (org-get-heading t t t t)))
+                         (org-get-heading t t)))
                   writer-org-heja)))
     (writer-org--10 'header-line-format
                     'header-line nil
-                    oxc bol eol srr)
+                    l0 l9 l10 l11)
     (writer-org--10 'mode-line-format
                     'mode-line nil
-                    os bol eol srr)))
+                    l1 l9 l10 l11)))
 
 
 (defun writer-org--20 (a b c)
-  "Lorem ipsum dolor sit amet."
+  "OK Lorem ipsum dolor sit amet."
   (when (> a writer-org-20)
-    (let* ((ff writer-org--20)
-           (gg writer-org--22)
-           (gap writer-org-22)
-           (bols writer-org-24)
-           (styl writer-org-23)
-           (ov (make-overlay b c))
-           (thr (+ writer-org-20 1))
-           (get (+ (- a thr) (* styl 4)))
-           (yess (aref (if bols gg ff) get))
-           (y (format "writer-org-bm-%d" a))
-           (xx (- (frame-char-height) gap))
-           (bitmap-symb (intern y)))
-      (define-fringe-bitmap bitmap-symb
-        (make-vector xx yess) xx 16)
-      (overlay-put ov 'writer-org t)
-      (overlay-put ov 'evaporate t)
-      (overlay-put ov 'priority a)
-      (overlay-put ov 'line-prefix
+    (let* ((l0 writer-org--20)
+           (l1 writer-org--22)
+           (l2 writer-org-22)
+           (l3 writer-org-24)
+           (l4 writer-org-23)
+           (l5 (make-overlay b c))
+           (l6 (+ writer-org-20 1))
+           (l7 (+ (- a l6) (* l4 4)))
+           (l8 (aref (if l3 l1 l0) l7))
+           (l9 (format "writer-org-bm-%d" a))
+           (l10 (- (frame-char-height) l2))
+           (l11 (intern l9)))
+      (define-fringe-bitmap l11
+        (make-vector l10 l8) l10 16)
+      (overlay-put l5 'writer-org t)
+      (overlay-put l5 'evaporate t)
+      (overlay-put l5 'priority a)
+      (overlay-put l5 'line-prefix
                    (propertize " " 'display
-                               (list 'left-fringe
-                                     bitmap-symb
+                               (list 'left-fringe l11
                                      writer-org-25)))
       (overlay-put ov 'wrap-prefix
                    (propertize " " 'display
-                               (list 'left-fringe
-                                     bitmap-symb
+                               (list 'left-fringe l11
                                      writer-org-25))))))
 
 (defun writer-org--21 (a b c)
-  "Lorem ipsum sit dolor amet."
-  (let* ((add (+ b a 1))
-         (local writer-org-20)
-         (check (< a (+ local 1)))
-         (bol (if check b (- b 1)))
-         (eol (if check add (- c 1)))
-         (ov (make-overlay bol eol)))
-    (overlay-put ov 'writer-org t)
-    (overlay-put ov 'evaporate t)
-    (overlay-put ov 'display "")))
+  "OK Lorem ipsum sit dolor amet."
+  (let* ((l0 (+ b a 1))
+         (l1 writer-org-20)
+         (l2 (< a (+ l1 1)))
+         (l3 (if l2 b (- b 1)))
+         (l4 (if l2 l0 (- c 1)))
+         (l5 (make-overlay l3 l4)))
+    (overlay-put l5 'writer-org t)
+    (overlay-put l5 'evaporate t)
+    (overlay-put l5 'display "")))
 
 
 (defun writer-org--22 ()
-  "Lorem ipsum sit dolor amet."
+  "OK Lorem ipsum sit dolor amet."
   (org-with-wide-buffer
    (org-element-map
        (org-element-parse-buffer
@@ -413,6 +425,11 @@
         (org-element-property :begin h)
         (org-element-property
          :contents-begin h))))))
+
+
+
+
+
 
 
 (kill-local-variable 'header-line-format)
