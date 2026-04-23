@@ -186,67 +186,47 @@
   :group 'writer-org
   :type 'integer)
 
-(defcustom writer-org-11 unspecified
-  "faces inherit header line"
-  :group 'writer-org
-  :type 'string)
 
-(defcustom writer-org-12 unspecified
-  "faces inherit mode line"
-  :group 'writer-org
-  :type 'string)
 
-(defcustom writer-org-13 nil
-  "line/word/sentence/org header"
+(defcustom writer-org-13 1
+  "char/line/word header"
   :group 'writer-org
-  :type '(choice (const :tag "None" nil)
-                 (const :tag "Line" line)
-                 (const :tag "Word" word)
-                 (const :tag "Sentence" sentence)
-                 (const :tag "Org Mode 0" org-mode-0)
-                 (const :tag "Org Mode 1" org-mode-1)))
+  :type 'integer)
 
-(defcustom writer-org-14 nil
-  "line/word/sentence/org mode"
+(defcustom writer-org-14 1
+  "char/line/word mode"
   :group 'writer-org
-  :type '(choice (const :tag "None" nil)
-                 (const :tag "Line" line)
-                 (const :tag "Word" word)
-                 (const :tag "Sentence" sentence)
-                 (const :tag "Org Mode 0" org-mode-0)
-                 (const :tag "Org Mode 1" org-mode-1)))
+  :type 'integer)
 
-(defcustom writer-org-15 nil
-  "text org-mode header"
-  :group 'writer-org
-  :type '(choice (const :tag "None" nil)
-                 (const :tag "Left" left)
-                 (const :tag "Right" right)
-                 (const :tag "Center" center)))
-
-(defcustom writer-org-16 nil
-  "text org-mode mode"
-  :group 'writer-org
-  :type '(choice (const :tag "None" nil)
-                 (const :tag "Left" left)
-                 (const :tag "Right" right)
-                 (const :tag "Center" center)))
-
-(defcustom writer-org-17 'left
+(defcustom writer-org-170 4
   "lines config header"
   :group 'writer-org
-  :type '(choice (const :tag "None" nil)
-                 (const :tag "Both" both)
-                 (const :tag "Top" top)
-                 (const :tag "Bottom" bottom)))
+  :type 'integer)
 
-(defcustom writer-org-18 'left
+(defcustom writer-org-180 4
   "lines config mode"
   :group 'writer-org
-  :type '(choice (const :tag "None" nil)
-                 (const :tag "Both" both)
-                 (const :tag "Top" top)
-                 (const :tag "Bottom" bottom)))
+  :type 'integer)
+
+(defcustom writer-org-prefix "-"
+  "First Separator header / mode"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-suffix " --- "
+  "Second separator header / mode"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-heja "writer-org"
+  "fallback text if no org-parent"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-11 'unspecified
+  "faces inherit header mode line"
+  :group 'writer-org
+  :type 'string)
 
 (defcustom writer-org-25 'default
   "OK Custom face of vertical line"
@@ -282,11 +262,21 @@
 
 
 
-
+(defun writer-org--01 ()
+  "Lorem ipsum dolor sit amet."
+  (let* ((max writer-org-09)
+         (marg (writer-org-08 2 1))
+         (args (writer-org-08 0 1))
+         (width (window-total-width))
+         (margin (max (/ (- width max) 2) 0)))
+    (setq-local left-margin-width (margin * args))
+    (setq-local right-margin-width (margin * marg))
+    (setq-local left-fringe-width (+ writer-org-21 26)))
+  (when (eq (current-buffer) (window-buffer (selected-window)))
+    (set-window-buffer (selected-window) (current-buffer))))
 
 (defun writer-org--00 ()
   "Lorem ipsum dolor sit amet."
-  (unless writer-org-mode
     (let* ((rati this-command)
            (ratio writer-org--04)
            (ratio0 writer-org-05)
@@ -299,96 +289,71 @@
                     start (point)))
            (tt (memq rati ratios0))
            (ss (memq rati ratios1)))
+      (writer-test)
       (when (> (abs (- offset ratio)) 0)
         (when (or (and tt ratio0)
                   (and ss ratio1)
-                  (and ratio2 and
+                  (and ratio2
                        (not (or tt ss))))
-          (recenter ratio))))))
+          (recenter ratio)))))
 
-(defun writer-org--01 ()
+(defun writer-org--10
+    (f0 f1 f2 f3 f4 f5 f6)
+  "OK Lorem ipsum dolor sit amet."
+  (when (memq f3 '(1 2 3 4 5 6 7))
+    (let* ((l0 (memq f3 '(2 4 5 7)))
+           (l1 (memq f3 '(3 4 6 7)))
+           (l2 (memq f3 '(5 7)))
+           (l3 (memq f3 '(6 7)))
+           (l4 writer-org-prefix)
+           (l5 writer-org-suffix))
+      (if f2 (setq writer-org--10
+                (face-remap-add-relative
+                 f1 (list :overline
+                         (when l2 t)
+                         :underline
+                         (when l3 t)
+                         :inherit
+                         writer-org-11)))
+        (set (make-local-variable f0)
+             (list (propertize
+                    (format "%d%s%d%s%s"
+                            f4 l4 f5 l5 f6)
+                    'face (list :overline
+                                (when l0 t)
+                                :underline
+                                (when l1
+                                  '(:position t)
+                                  )))))))))
+
+(defun writer-test ()
   "Lorem ipsum dolor sit amet."
-  (let* ((max writer-org-09)
-         (marg (writer-org-08 2 1))
-         (args (writer-org-08 0 1))
-         (width (window-total-width))
-         (margin (max 0 (/ (- width max) 2))))
-    (setq-local left-margin-width (margin * args))
-    (setq-local right-margin-width (margin * marg))
-    (setq-local left-fringe-width (+ writer-org-21 26)))
-  (when (eq (current-buffer) (window-buffer (selected-window)))
-    (set-window-buffer (selected-window) (current-buffer))))
+  (let* ((oxc writer-org-170)
+         (os writer-org-180)
+         (on writer-org-14)
+         (om writer-org-13)
+         (ch (org-before-first-heading-p))
+         (aa (+ (count-words (point-min) (point)) 1))
+         (cc (+ (count-lines (point-min) (point)) 1))
+         (bb (+ (count-words (point-min) (point-max)) 1))
+         (dd (+ (count-lines (point-min) (point-max)) 1))
+         (bol (aref (vector "" (point-max) aa cc) om))
+         (eol (aref (vector "" (point) bb dd) on))
+         (srr (or (and (not ch)
+                       (save-excursion
+                         (org-back-to-heading t)
+                         (org-get-heading t t t t)))
+                  writer-org-heja)))
+    (writer-org--10 'header-line-format
+                    'header-line nil
+                    oxc bol eol srr)
+    (writer-org--10 'mode-line-format
+                    'mode-line nil
+                    os bol eol srr)))
 
-
-
-;; (let ((face-spec (list :underline (list :style 'line
-;;                                         :position t)
-;;                        :overline t)))
-;;   (face-remap-add-relative 'mode-line face-spec))
-
-;; (let* ((underline-spec (list :style    'line
-;;                              :position t))
-;;        (overline-spec  t)
-;;        (face-spec      (list :underline underline-spec
-;;                              :overline  overline-spec)))
-;;   (face-remap-add-relative 'mode-line face-spec))
-
-
-
-(defun writer-separate (a b c)
-(setq writer-org--10
-      (face-remap-add-relative
-       c
-       (list :overline t
-             :underline
-             (list :style line
-                   :position t)
-             :inherit writer-org-11))))
-
-(defun writer-org--10 (a b c)
-  (concat
-   (if (a and b) "%d/%d" "")
-   (if c "%d" "")
-   (if d "%d" ""))
-  (let ((form ("%d/%d %d" a b c)))
-    (setq-local c (list (propertize
-                       (format form)
-                       'face (list :overline t
-                                   :underline
-                                   (list :style line
-                                         :position t)
-                                   :inherit writer-org-12))))))
-
-(defun writer-org--11 ()  
-  (let (vector (aa (+ 1 (count-words (point-min) (point))))
-        (bb (+ 1 (count-words (point-min) (point-max))))
-        (cc (+ 1 (count-lines (point-min) (point))))
-        (dd (+ 1 (count-lines (point-min) (point-max)))))
-    (writer-org--10 "" "" header-line-format)
-    (writer-org--10 "" "" mode-line-format)
-    (writer-separate "" "" 'header-line)
-    (writer-separate "" "" 'mode-line)))
-
-
-
-
-
-
-
-(defun writer-org--21 (a b c)
-  "Lorem ipsum sit dolor amet."
-  (let* ((add (+ b a 1))
-         (local writer-org-20)
-         (check (< a (+ local 1)))
-         (bol (if check b (- b 1)))
-         (eol (if check add (- c 1)))
-         (ov (make-overlay bol eol)))
-    (overlay-put ov 'writer-org t)
-    (overlay-put ov 'evaporate t)
-    (overlay-put ov 'display "")))
 
 (defun writer-org--20 (a b c)
-"Lorem ipsum dolor sit amet."
+  "Lorem ipsum dolor sit amet."
   (when (> a writer-org-20)
     (let* ((ff writer-org--20)
            (gg writer-org--22)
@@ -418,6 +383,19 @@
                                      bitmap-symb
                                      writer-org-25))))))
 
+(defun writer-org--21 (a b c)
+  "Lorem ipsum sit dolor amet."
+  (let* ((add (+ b a 1))
+         (local writer-org-20)
+         (check (< a (+ local 1)))
+         (bol (if check b (- b 1)))
+         (eol (if check add (- c 1)))
+         (ov (make-overlay bol eol)))
+    (overlay-put ov 'writer-org t)
+    (overlay-put ov 'evaporate t)
+    (overlay-put ov 'display "")))
+
+
 (defun writer-org--22 ()
   "Lorem ipsum sit dolor amet."
   (org-with-wide-buffer
@@ -437,7 +415,18 @@
          :contents-begin h))))))
 
 
-
+(kill-local-variable 'header-line-format)
+(face-remap-remove-relative writer-org--10)
+(setq sentence-end-double-space nil)
+(defun writer-testt ()
+  (let ((oxc writer-org-170)
+        (os writer-org-180))
+    (writer-org--10 'header-line-format
+                    'header-line t oxc
+                    nil nil nil)
+    (writer-org--10 'mode-line-format
+                    'mode-line t os
+                    nil nil nil)))
 
 
 
@@ -529,6 +518,8 @@
       (setq writer-org--04 offset))    
     (add-hook 'post-command-hook
               #'writer-org--00 nil t)
+    (add-hook 'post-command-hook
+              (lambda () (writer-text 1)))
     (message "writer-org-34")))
 
 (defun writer-org--23 (orig-fn &rest args)
