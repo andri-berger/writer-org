@@ -35,18 +35,6 @@
 ;;
 ;;; News:
 ;;
-;; Version 0.3
-;; Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-;; eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-;; voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-;; clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit. 
-;;
-;; Version 0.2
-;; Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-;; eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-;; voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-;; kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
-;;
 ;; Version 0.1
 ;; Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
 ;; eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
@@ -63,7 +51,7 @@
   :prefix "writer-org-"
   :group 'text)
 
-(defconst writer-org--20
+(defconst writer-org--00
   '[#b0000000000000010
     #b0000000000100010
     #b0000001000100010
@@ -86,7 +74,7 @@
     #b1110111011101110]
   "OK make-vector hash-table LTR")
 
-(defconst writer-org--22
+(defconst writer-org--01
   '[#b0100000000000000
     #b0100010000000000
     #b0100010001000000
@@ -109,7 +97,7 @@
     #b0111011101110111]
   "OK make-vector hash-table RTL")
 
-(defconst writer-org--00
+(defconst writer-org--02
   '(org-next-link
     org-next-item
     org-up-heading
@@ -125,9 +113,9 @@
     org-previous-visible-heading
     org-forward-heading-same-level
     org-backward-heading-same-level)
-    "Lorem ipsum dolor sit amet.")
+  "Lorem ipsum dolor sit amet.")
 
-(defconst writer-org--01
+(defconst writer-org--03
   '(newline
     kill-line
     kill-word
@@ -141,147 +129,136 @@
   "Lorem ipsum dolor sit amet.")
 
 
-
-
-(defvar-local writer-org--02 nil
-  "Temporary var left-margin-width.")
-
-(defvar-local writer-org--03 nil
-  "Temporary var right-margin-width.")
-
-(defvar-local writer-org--04 nil
-  "Global var ratio (unclear) ????.")
-
 (defvar-local writer-org--10 nil
-  "Clean var set-face-remap header")
-
-(defvar-local writer-org--11 nil
-  "Clean var set-face-remap mode")
-
-(defvar-local writer-org--21 nil
   "Temporary var left-fringe-width.")
 
+(defvar-local writer-org--11 nil
+  "Temporary var left-margin-width.")
+
+(defvar-local writer-org--12 nil
+  "Temporary var right-margin-width.")
+
+(defvar-local writer-org--13 nil
+  "Clean var set-face-remap header")
+
+(defvar-local writer-org--14 nil
+  "Clean var set-face-remap mode")
+
+(defvar-local writer-org--19 nil
+  "Check var face is set already")
+
+(defvar-local writer-org--15 nil
+  "Offset from edges of window.")
 
 
-
-
-
-(defcustom writer-org-05 nil
-  "Enable typing-mode"
-  :group 'writer-org
-  :type 'boolean)
-
-(defcustom writer-org-06 nil
-  "Enable cursor-mode"
-  :group 'writer-org
-  :type 'boolean)
-
-(defcustom writer-org-07 nil
-  "Enable org-mode"
-  :group 'writer-org
-  :type 'boolean)
-
-(defcustom writer-org-08 nil
+(defcustom writer-org-16 nil
   "Centering horizontally"
   :group 'writer-org
   :type 'boolean)
 
-(defcustom writer-org-09 50
-  "Max-width in pixel"
+(defcustom writer-org-17 50
+  "Max-width in pixel/chars"
   :group 'writer-org
   :type 'integer)
 
-
-
-
-(defcustom writer-org-13 1
-  "char/line/word header"
-  :group 'writer-org
-  :type 'integer)
-
-(defcustom writer-org-14 1
-  "char/line/word mode"
-  :group 'writer-org
-  :type 'integer)
-
-(defcustom writer-org-170 4
-  "lines config header"
-  :group 'writer-org
-  :type 'integer)
-
-(defcustom writer-org-180 4
-  "lines config mode"
-  :group 'writer-org
-  :type 'integer)
-
-(defcustom writer-org-prefix "-"
-  "First Separator header / mode"
-  :group 'writer-org
-  :type 'string)
-
-(defcustom writer-org-suffix " --- "
-  "Second separator header / mode"
-  :group 'writer-org
-  :type 'string)
-
-(defcustom writer-org-heja "writer-org"
-  "fallback text if no org-parent"
-  :group 'writer-org
-  :type 'string)
-
-(defcustom writer-org-11 'unspecified
-  "faces inherit header mode line"
-  :group 'writer-org
-  :type 'string)
-
-
-
-
-(defcustom writer-org-25 'default
-  "OK Custom face of vertical line"
-  :group 'writer-org
-  :type 'string)
-
-(defcustom writer-org-24 nil
-  "OK LTR vs RTL Alignment"
-  :group 'writer-org
-  :type 'boolean)
-
-(defcustom writer-org-21 0
+(defcustom writer-org-18 0
   "OK Left fringe width"
   :group 'writer-org
   :type 'integer)
 
-(defcustom writer-org-22 0
-  "OK vertical gap fringe left"
+(defcustom writer-org-20 4
+  "lines config header"
   :group 'writer-org
   :type 'integer)
 
-(defcustom writer-org-20 1
-  "OK hierarchy treshold"
+(defcustom writer-org-21 4
+  "lines config mode"
+  :group 'writer-org
+  :type 'integer)
+
+(defcustom writer-org-22 1
+  "char/line/word header"
   :group 'writer-org
   :type 'integer)
 
 (defcustom writer-org-23 1
+  "char/line/word mode"
+  :group 'writer-org
+  :type 'integer)
+
+(defcustom writer-org-24 "-"
+  "First Separator header / mode"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-25 " --- "
+  "Second separator header / mode"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-26 "writer-org"
+  "fallback text if no org-parent"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-27 'unspecified
+  "faces inherit header mode line"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-30 'default
+  "OK Custom face of vertical line"
+  :group 'writer-org
+  :type 'string)
+
+(defcustom writer-org-31 0
+  "OK vertical gap fringe left"
+  :group 'writer-org
+  :type 'integer)
+
+(defcustom writer-org-32 1
   "OK line-styles 0-4"
   :group 'writer-org
   :type 'integer)
 
+(defcustom writer-org-33 1
+  "OK hierarchy treshold"
+  :group 'writer-org
+  :type 'integer)
+
+(defcustom writer-org-34 nil
+  "OK LTR vs RTL Alignment"
+  :group 'writer-org
+  :type 'boolean)
+
+(defcustom writer-org-35 nil
+  "Enable typing-mode"
+  :group 'writer-org
+  :type 'boolean)
+
+(defcustom writer-org-36 nil
+  "Enable cursor-mode"
+  :group 'writer-org
+  :type 'boolean)
+
+(defcustom writer-org-37 nil
+  "Enable org-mode"
+  :group 'writer-org
+  :type 'boolean)
 
 
-
-
-(defun writer-org--01 ()
+(defun writer-org--40 ()
   "OK Lorem ipsum dolor sit amet."
-  (let* ((l0 writer-org-09)
-         (l1 writer-org-21)
-         (l2 (writer-org-08 2 1))
-         (l3 (writer-org-08 0 1))
-         (l4 (window-total-width))
-         (l5 (max (/ (- l4 l0) 2) 0)))
-    (setq-local left-margin-width (l5 * l3))
-    (setq-local right-margin-width (l5 * l2))
-    (setq-local left-fringe-width (+ l1 26)))
+  (let* ((l0 writer-org-16)
+         (l1 writer-org-17)
+         (l2 writer-org-18)
+         (l3 (if (eq l0 t) 0 1))
+         (l4 (if (eq l0 t) 2 1))
+         (l5 (window-total-width))
+         (l6 (max (/ (- l5 l1) 2) 0)))
+    (setq-local left-fringe-width (+ 26 l2))
+    (setq-local left-margin-width (* l6 l3))
+    (setq-local right-margin-width (* l6 l4)))
   (when (eq (current-buffer)
             (window-buffer
              (selected-window)))
@@ -289,142 +266,182 @@
      (selected-window)
      (current-buffer))))
 
-(defun writer-org--00 ()
+(defun writer-org--41 ()
   "OK Lorem ipsum dolor sit amet."
-    (let* ((l0 this-command)
-           (l1 writer-org--04)
-           (l2 writer-org-05)
-           (l3 writer-org-06)
-           (l4 writer-org-07)
-           (l5 writer-org--00)
-           (l6 writer-org--01)
-           (l7 (count-lines
-                (window-start)
-                (point)))
-           (l8 (memq l0 l5))
-           (l9 (memq l0 l6)))
-      (when (> (abs (- l7 l1)) 0)
-        (when (or (and l8 l2)
-                  (and l9 l3)
-                  (and l4
-                       (not
-                        (or l9 l9))))
-          (recenter l1)))))
-
-(defun writer-org--10
-    (f0 f1 f2 f3 f4 f5 f6)
-  "OK Lorem ipsum dolor sit amet."
-  (when (memq f3 '(1 2 3 4 5 6 7))
-    (let* ((l0 (memq f3 '(2 4 5 7)))
-           (l1 (memq f3 '(3 4 6 7)))
-           (l2 (memq f3 '(5 7)))
-           (l3 (memq f3 '(6 7)))
-           (l4 writer-org-prefix)
-           (l5 writer-org-suffix))
-      (if f2 (setq writer-org--10
-                (face-remap-add-relative
-                 f1 (list :overline
-                         (when l2 t)
-                         :underline
-                         (when l3 t)
-                         :inherit
-                         writer-org-11)))
-        (set (make-local-variable f0)
-             (list (propertize
-                    (format "%d%s%d%s%s"
-                            f4 l4 f5 l5 f6)
-                    'face (list :overline
-                                (when l0 t)
-                                :underline
-                                (when l1
-                                  '(:position t)
-                                  )))))))))
-
-(defun writer-test ()
-  "OK Lorem ipsum dolor sit amet."
-  (let* ((l0 writer-org-170)
-         (l1 writer-org-180)
-         (l2 writer-org-14)
-         (l3 writer-org-13)
+  (let* ((l0 writer-org-20)
+         (l1 writer-org-21)
+         (l2 writer-org-22)
+         (l3 writer-org-23)
          (l4 (org-before-first-heading-p))
          (l5 (+ (count-words (point-min) (point)) 1))
          (l6 (+ (count-lines (point-min) (point)) 1))
          (l7 (+ (count-words (point-min) (point-max)) 1))
          (l8 (+ (count-lines (point-min) (point-max)) 1))
-         (l9 (aref (vector "" (point-max) l5 l6) l3))
-         (l10 (aref (vector "" (point) l7 l8) l2))
+         (l9 (aref (vector "" (point-max) l5 l6) l2))
+         (l10 (aref (vector "" (point) l7 l8) l3))
          (l11 (or (and (not l4)
                        (save-excursion
                          (org-back-to-heading t)
                          (org-get-heading t t)))
-                  writer-org-heja)))
-    (writer-org--10 'header-line-format
-                    'header-line nil
-                    l0 l9 l10 l11)
-    (writer-org--10 'mode-line-format
-                    'mode-line nil
-                    l1 l9 l10 l11)))
+                  writer-org-26)))
+    (writer-org--42 'header-line-format
+                    'header-line l0
+                    l9 l10 l11)
+    (writer-org--42 'mode-line-format
+                    'mode-line l1
+                    l9 l10 l11)))
 
-
-(defun writer-org--20 (a b c)
+(defun writer-org--42
+    (f0 f1 f2 f3 f4 f5)
   "OK Lorem ipsum dolor sit amet."
-  (when (> a writer-org-20)
-    (let* ((l0 writer-org--20)
-           (l1 writer-org--22)
-           (l2 writer-org-22)
-           (l3 writer-org-24)
-           (l4 writer-org-23)
-           (l5 (make-overlay b c))
-           (l6 (+ writer-org-20 1))
-           (l7 (+ (- a l6) (* l4 4)))
-           (l8 (aref (if l3 l1 l0) l7))
-           (l9 (format "writer-org-bm-%d" a))
-           (l10 (- (frame-char-height) l2))
-           (l11 (intern l9)))
+  (when (memq f2 '(1 2 3 4 5 6 7))
+    (let* ((l0 (memq f2 '(2 4 5 7)))
+           (l1 (memq f2 '(3 4 6 7)))
+           (l2 (memq f2 '(5 7)))
+           (l3 (memq f2 '(6 7)))
+           (l4 writer-org-24)
+           (l5 writer-org-25)
+           (l6 writer-org-27))
+      (unless writer-org--19
+        (setq writer-org--19 t)
+        (set (if (eq f1 'mode-line)
+                       'writer-org--14
+                     'writer-org--13)
+                (face-remap-add-relative
+                 f1 (list :overline (when l2 t)
+                         :underline (when l3 t)
+                         :inherit l6))
+                setq writer-org--19))
+      (set (make-local-variable f0)
+             (list (propertize
+                    (format "%d%s%d%s%s"
+                            f3 l4 f4 l5 f5)
+                    'face (list :overline (when l0 t)
+                                :underline (when l1
+                                  '(:position t)
+                                  ))))))))
+
+(defun writer-org--50 (f0 f1 f2)
+  "OK Lorem ipsum dolor sit amet."
+  (when (> f0 writer-org-33)
+    (let* ((l0 writer-org--00)
+           (l1 writer-org--01)
+           (l2 writer-org-30)
+           (l3 writer-org-31)
+           (l4 writer-org-32)
+           (l5 writer-org-34)
+           (l6 "writer-org-%d")
+           (l7 (+ writer-org-33 1))
+           (l8 (make-overlay f1 f2))
+           (l9 (+ (- f0 l7) (* l4 4)))
+           (l10 (aref (if l5 l1 l0) l9))
+           (l11 (intern (format l6 f0)))
+           (l12 (- (frame-char-height) l3))
+           (l13 (propertize " " 'display
+                            (list 'left-fringe
+                                  l10 l2))))
       (define-fringe-bitmap l11
-        (make-vector l10 l8) l10 16)
-      (overlay-put l5 'writer-org t)
-      (overlay-put l5 'evaporate t)
-      (overlay-put l5 'priority a)
-      (overlay-put l5 'line-prefix
-                   (propertize " " 'display
-                               (list 'left-fringe l11
-                                     writer-org-25)))
-      (overlay-put ov 'wrap-prefix
-                   (propertize " " 'display
-                               (list 'left-fringe l11
-                                     writer-org-25))))))
+        (make-vector l12 l10) l12 16)
+      (overlay-put l8 'writer-org t)
+      (overlay-put l8 'evaporate t)
+      (overlay-put l8 'priority f0)
+      (overlay-put l8 'line-prefix l13)
+      (overlay-put l8 'wrap-prefix l13))))
 
-(defun writer-org--21 (a b c)
-  "OK Lorem ipsum sit dolor amet."
-  (let* ((l0 (+ b a 1))
-         (l1 writer-org-20)
-         (l2 (< a (+ l1 1)))
-         (l3 (if l2 b (- b 1)))
-         (l4 (if l2 l0 (- c 1)))
-         (l5 (make-overlay l3 l4)))
-    (overlay-put l5 'writer-org t)
-    (overlay-put l5 'evaporate t)
-    (overlay-put l5 'display "")))
-
-
-(defun writer-org--22 ()
+(defun writer-org--51 ()
   "OK Lorem ipsum sit dolor amet."
   (org-with-wide-buffer
    (org-element-map
-       (org-element-parse-buffer
+       (org-element-parse-buffer 
         'headline)
        'headline
      (lambda (h)
-       (writer-org--20
-        (org-element-property :level h)
-        (org-element-property :begin h)
-        (org-element-property :end h))
-       (writer-org--21
-        (org-element-property :level h)
-        (org-element-property :begin h)
-        (org-element-property
-         :contents-begin h))))))
+       (let* ((l0 writer-org-33)
+              (l1 (1- (org-element-property
+                      :contents-begin h)))
+              (l2 (org-element-property :level h))
+              (l3 (org-element-property :begin h))
+              (l4 (org-element-property :end h))     
+              (l5 (if (<= l2 l0) (+ l3 l2 1) l1))
+              (l6 (if (<= l2 l0) l1 (- l3 1)))
+              (l7 (make-overlay l6 l5)))
+         (overlay-put l7 'writer-orgs t)
+         (overlay-put l7 'evaporate t)
+         (overlay-put l7 'display "")
+         (writer-org--50 l2 l3 l4))))))
+
+(defun writer-org--52 ()
+  "Lorem ipsum dolor sit amet."
+  (let* ((l0 writer-org--02)
+         (l1 writer-org--03)
+         (l2 writer-org--15)
+         (l3 writer-org-35)
+         (l4 writer-org-36)
+         (l5 writer-org-37)
+         (l6 this-command)
+         (l7 (memq l6 l0))
+         (l8 (memq l6 l1))
+         (l9 (count-lines
+              (window-start)
+              (point))))
+    (when (> (abs (- l9 l2)) 0)
+      (when (or (and l7 l3)
+                  (and l8 l4)
+                  (and l5
+                       (not
+                        (or l67 l67))))
+          (recenter l1)))))
+
+(defun writer-org-53 ()
+  "Lorem ipsum dolor sit amet."
+  (interactive)
+  (unless writer-org-mode
+    (setq-local scroll-margin 0)
+    (setq-local maximum-scroll-margin 0)
+    (setq-local scroll-conservatively 0)
+    (setq-local scroll-up-aggressively 0)
+    (setq-local scroll-down-aggressively 0)
+    (let* ((start (window-start))
+           (offset (count-lines
+                    start (point))))
+      (setq writer-org--15 offset))   
+    (add-hook 'post-command-hook
+              #'writer-org--52 nil t)
+    (message "writer-org-53")))
+
+(defun writer-org-60 ()
+  "Lorem ipsum dolor sit amet."
+  (interactive)
+  (when (use-region-p)
+    (unless writer-org-mode
+      (goto-char (region-beginning))
+      (insert (make-string 3 32))
+      (goto-char (- (point) 2))      
+      (let ((l0 (region-beginning)
+            (l1 (region-end)))
+            (l2 (make-overlay
+                 (- (point) 1)
+                 (+ (point) 1)))
+            (l3 (make-overlay
+                 (+ l0 3)
+                 (+ l1 3))))
+          (overlay-put l3 'face 'region)
+          (overlay-put l2 'face 'region)
+          (overlay-put l2 'priority 50)
+          (overlay-put l3 'priority 50))
+      (message "writer-org-60"))))
+
+(defun writer-org-61 ()
+  "Lorem ipsum dolor sit amet."
+  (interactive)
+  (unless writer-org-mode
+    (message "writer-org-61")))
+
+(defun writer-org-62 ()
+  "Lorem ipsum dolor sit amet."
+  (interactive)
+  (when writer-org-mode
+    (message "writer-org-62")))
 
 
 
@@ -432,18 +449,10 @@
 
 
 
-(kill-local-variable 'header-line-format)
-(face-remap-remove-relative writer-org--10)
-(setq sentence-end-double-space nil)
-(defun writer-testt ()
-  (let ((oxc writer-org-170)
-        (os writer-org-180))
-    (writer-org--10 'header-line-format
-                    'header-line t oxc
-                    nil nil nil)
-    (writer-org--10 'mode-line-format
-                    'mode-line t os
-                    nil nil nil)))
+
+
+
+
 
 
 
@@ -462,193 +471,123 @@
 ;; window-end
 ;; window-end nil t
 
-(defun writer-org-30 ()
+
+(defun writer-org--enable ()
   "Lorem ipsum dolor sit amet."
-  (interactive)
-  (when (use-region-p)
-    (unless writer-org-mode
-      (let ((as (region-end))
-            (at (region-beginning)))
-        (goto-char (region-beginning))
-        (insert (make-string 3 32))
-        (goto-char (- (point) 2))
-        (let ((ov (make-overlay
-                 (- (point) 1)
-                 (+ (point) 1)))
-            (ovs (make-overlay
-                  (+ at 3)
-                  (+ as 3))))
-          (overlay-put ovs 'face 'region)
-          (overlay-put ov 'face 'region)
-          (overlay-put ov 'priority 50)
-          (overlay-put ovs 'priority 50)))
-      (message "writer-org-30"))))
+  (dolist (fn '(org-demote
+                org-promote
+                org-cut-subtree
+                org-copy-subtree
+                org-paste-subtree
+                org-demote-subtree
+                org-promote-subtree
+                org-move-subtree-up
+                org-narrow-to-subtree
+                org-move-subtree-down))
+  (advice-add fn :around #'writer-org--hook))
+  (setq writer-org--10 left-fringe-width)
+  (setq writer-org--11 left-margin-width)
+  (setq writer-org--12 right-margin-width)
+  (setq-local sentence-end-double-space nil)
+  (setq-local display-line-numbers nil)
+  (add-hook 'window-size-change-functions
+            #'writer-org--look)
+  (add-hook 'post-command-hook
+            #'writer-org--41 t)  
+  (writer-org--40)
+  (writer-org--41)
+  (writer-org--51))
 
-(defun writer-org-31 ()
+(defun writer-org--disable ()
   "Lorem ipsum dolor sit amet."
-  (interactive)
-  (unless writer-org-mode
-    (message "writer-org-31")))
+  (let ((l0 writer-org--10)
+        (l1 writer-org--11)
+        (l2 writer-org--12)
+        (l3 writer-org--13)
+        (l4 writer-org--14)
+        (l5 'post-command-hook)
+        (l6 'window-size-change-functions)
+  (remove-overlays nil nil 'writer-orgs t)
+  (remove-overlays nil nil 'writer-org t)
+  (remove-hook l5 #'writer-org--41 t)  
+  (remove-hook l6 #'writer-org-look)
+  (setq-local left-fringe-width l0)
+  (setq-local left-margin-width l1)
+  (setq-local right-margin-width l2)
+  (face-remap-remove-relative l3)
+  (face-remap-remove-relative l4))
+  (setq writer-org--10 nil)
+  (setq writer-org--11 nil)
+  (setq writer-org--12 nil)
+  (setq writer-org--13 nil)
+  (dolist (fn '(scroll-margin
+                mode-line-format
+                header-line-format
+                display-line-numbers
+                maximum-scroll-margin
+                scroll-conservatively
+                scroll-up-aggressively
+                scroll-down-aggressively
+                sentence-end-double-space))
+              (kill-local-variable fn))
+  (dolist (fn '(org-demote
+                org-promote
+                org-cut-subtree
+                org-copy-subtree
+                org-paste-subtree
+                org-demote-subtree
+                org-promote-subtree
+                org-move-subtree-up
+                org-narrow-to-subtree
+                org-move-subtree-down))
+    (advice-remove fn
+                   #'writer-org--hook))
+ (when (eq (current-buffer)
+            (window-buffer
+             (selected-window)))
+    (set-window-buffer
+     (selected-window)
+     (current-buffer))))
 
-(defun writer-org-32 ()
-  "Lorem ipsum dolor sit amet."
-  (interactive)
-  (when writer-org-mode
-    (message "writer-org-32")))
-
-(defun writer-org-33 ()
-  "Lorem ipsum dolor sit amet."
-  (interactive)
-  (when writer-org-mode
-    (message "writer-org-33")))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;;;;; keybinding-functionalities
-;;;;; keybinding-functionalities
-
-(defun writer-org-34 ()
-  "Lorem ipsum dolor sit amet."
-  (interactive)
-  (unless writer-org-mode
-    (setq-local scroll-margin 0)
-    (setq-local maximum-scroll-margin 0)
-    (setq-local scroll-conservatively 0)
-    (setq-local scroll-up-aggressively 0)
-    (setq-local scroll-down-aggressively 0)
-    (let* ((start (window-start))
-           (offset (count-lines
-                    start (point))))
-      (setq writer-org--04 offset))    
-    (add-hook 'post-command-hook
-              #'writer-org--00 nil t)
-    (add-hook 'post-command-hook
-              (lambda () (writer-text 1)))
-    (message "writer-org-34")))
-
-(defun writer-org--23 (orig-fn &rest args)
-  "Lorem ipsum sit dolor amet.."
-    (remove-overlays
-     (point-min)
-     (point-max)
-     'writer-org t)
-    (outline-back-to-heading t)
-    (apply orig-fn args)    
-    (writer-org--22))
-
-
-
-(defun writer-org--40 ()
-  "compute sentence"
-  )
-
-(defun writer-org--41 (frame)
+(defun writer-org--look (org-fn)
+  "Lorem ipsum sit dolor amet."
   (walk-windows
-   (lambda (win)
+   (lambda (fn)
      (when (buffer-local-value
-            'writer-org-mode (window-buffer win))
-       (with-selected-window win
-         (writer-org--01))))
-   nil frame)
-  (message "writer-org-hook"))
+            'writer-org-mode
+            (window-buffer fn))
+       (with-selected-window fn
+         (writer-org--40))))
+   nil org-fn))
 
-(defun writer-org-enable ()
-  "Lorem ipsum dolor sit amet."
-  (setq writer-org--21 left-fringe-width)
-  (setq writer-org--02 left-margin-width)
-  (setq writer-org--03 right-margin-width)
-  (writer-org--10)
-  (writer-org--11)
-  (writer-org--20)
-  (writer-org--21)
-  (writer-org--22)
-  (writer-org-30)
-  (writer-org-31)
-  (writer-org-32)
-  (writer-org-33)
-  (writer-org-34)
-  (add-hook
-   'window-size-change-functions
-   #'writer-org--41)
-(advice-add 'org-demote :around #'writer-org--23)
-(advice-add 'org-promote :around #'writer-org--23)
-(advice-add 'org-cut-subtree :around #'writer-org--23)
-(advice-add 'org-copy-subtree :around #'writer-org--23)
-(advice-add 'org-paste-subtree :around #'writer-org--23)
-(advice-add 'org-demote-subtree :around #'writer-org--23)
-(advice-add 'org-promote-subtree :around #'writer-org--23)
-(advice-add 'org-move-subtree-up :around #'writer-org--23)
-(advice-add 'org-narrow-to-subtree :around #'writer-org--23)
-(advice-add 'org-move-subtree-down :around #'writer-org--23)
-  (message "writer-org-enable"))
-
-(defun writer-org-disable ()
-  "Lorem ipsum dolor sit amet."
-  (setq-local left-fringe-width writer-org--21)
-  (setq-local left-margin-width writer-org--02)
-  (setq-local right-margin-width writer-org--03)
-  (setq writer-org--02 nil)
-  (setq writer-org--03 nil)
-  (when (eq (current-buffer)
-            (window-buffer (selected-window)))
-    (set-window-buffer (selected-window) (current-buffer)))
-  (remove-hook 'window-size-change-functions #'writer-org-hook)
-  (remove-hook 'post-command-hook #'writer-org--01 t)
-  (face-remap-remove-relative my-mode--headers)
-  (kill-local-variable 'header-line-format)
-  (setq-local writer-org--10 nil)
-  (kill-local-variable 'scroll-margin)
-  (kill-local-variable 'maximum-scroll-margin)
-  (kill-local-variable 'scroll-conservatively)
-  (kill-local-variable 'scroll-up-aggressively)
-  (kill-local-variable 'scroll-down-aggressively)
-  (remove-overlays (point-min) (point-max)
-                   'writer-org t)
-  (advice-remove 'org-demote #'writer-org--23)
-  (advice-remove 'org-promote #'writer-org--23)
-  (advice-remove 'org-cut-subtree #'writer-org--23)
-  (advice-remove 'org-copy-subtree #'writer-org--23)
-  (advice-remove 'org-paste-subtree #'writer-org--23)
-  (advice-remove 'org-demote-subtree #'writer-org--23)
-  (advice-remove 'org-promote-subtree #'writer-org--23)
-  (advice-remove 'org-move-subtree-up #'writer-org--23)
-  (advice-remove 'org-narrow-to-subtree #'writer-org--23)
-  (advice-remove 'org-move-subtree-down #'writer-org--23)
-  (message "writer-org-disable"))
+(defun writer-org--hook (org-fn)
+  "Lorem ipsum sit dolor amet."
+  (remove-overlays
+   nil nil 'writer-orgs t)
+  (org-back-to-heading t)
+  (apply org-fn)    
+  (writer-org--51))
 
 
 ;;;###autoload
 (define-minor-mode writer-org-mode
   "Writing layout mode for org buffers."
   :keymap (make-sparse-keymap)
-  :lighter " writer"
+  :lighter " writer-org"
   :group 'writer-org
   (if writer-org-mode
       (progn
-        (writer-org-enable)
+        (writer-org--enable)
         (message "enabled"))
-    (writer-org-disable)
+    (writer-org--disable)
     (message "disabled")))
 
 ;;;###autoload
 (defun writer-org-reload ()
-  "Re-apply current configuration to active buffer."
+  "Lorem ipsum dolor sit amet."
   (interactive)
-  (writer-org-disable)
-  (writer-org-enable)
+  (writer-org--disable)
+  (writer-org--enable)
   (message "reloaded"))
 
 (provide 'writer-org)
