@@ -243,12 +243,12 @@
   :type 'string)
 
 (defcustom writer-org-18 'unspecified
-  "faces inherit header mode line"
+  "Faces inherit header mode line"
   :group 'writer-org
   :type 'string)
 
 (defcustom writer-org-19 'unspecified
-  "OK Custom face of vertical line"
+  "Custom face of vertical line"
   :group 'writer-org
   :type 'string)
 
