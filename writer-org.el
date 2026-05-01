@@ -168,7 +168,7 @@
   :type 'boolean)
 
 (defcustom writer-org-3 nil
-  "OK LTR vs RTL Alignment"
+  "LTR vs RTL Alignment"
   :group 'writer-org
   :type 'boolean)
 
@@ -529,7 +529,7 @@
     (let* ((start (window-start))
            (offset (count-lines
                     start (point))))
-      (setq writer-org--05 offset))   
+      (setq writer-org--05 offset))
     (add-hook 'post-command-hook
               #'writer-org--07 nil t))
   (message "hooked"))
